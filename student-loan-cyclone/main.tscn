@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://lpcgj2pnwkkg"]
+[gd_scene load_steps=7 format=3 uid="uid://lpcgj2pnwkkg"]
 
 [ext_resource type="Script" uid="uid://bfefkea5golix" path="res://camera_3d.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://c8eqos1a4n6ya" path="res://cyclone.tscn" id="1_ig7tw"]
@@ -6,14 +6,16 @@
 [sub_resource type="Environment" id="Environment_7dm0k"]
 background_mode = 2
 
-[sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0xm2m"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_0xm2m"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_h2yge"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.85569865, 0.51747453, 0, -0.51747453, 0.85569865, 0, 1.4443412, 2.3722444)
+transform = Transform3D(1, 0, 0, 0, 0.85569865, 0.51747453, 0, -0.51747453, 0.85569865, 0, 2.8597474, 2.3722444)
 script = ExtResource("1_0xm2m")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -22,12 +24,15 @@ transform = Transform3D(1, 0, 0, 0, 0.52139693, 0.85331434, 0, -0.85331434, 0.52
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7dm0k")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
-mesh = SubResource("BoxMesh_7dm0k")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D"]
-shape = SubResource("BoxShape3D_7dm0k")
-
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2625995, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9950538, 0.099337116, 0, -0.099337116, 0.9950538, 0, 2.8719845, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0xm2m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("PlaneMesh_0xm2m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_h2yge")
