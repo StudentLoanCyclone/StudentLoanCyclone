@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://bhx4payryrcni"]
+
+[ext_resource type="Texture2D" uid="uid://c6gctrrvyvm18" path="res://asset/spinner2/swirlcyclone_albedo.png" id="1_dfdd4"]
+[ext_resource type="Texture2D" uid="uid://c88knb60i6qjh" path="res://asset/spinner1/firecyclone_metallic.png" id="2_x84mr"]
+[ext_resource type="Texture2D" uid="uid://byxugj3xv773q" path="res://asset/spinner2/swirlcyclone_normal.png" id="3_sinp8"]
+[ext_resource type="Texture2D" uid="uid://iuco4pcgipaf" path="res://asset/spinner1/firecyclone_roughness.png" id="4_h6q1g"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_dfdd4")
+metallic = 1.0
+metallic_texture = ExtResource("2_x84mr")
+roughness_texture = ExtResource("4_h6q1g")
+normal_enabled = true
+normal_texture = ExtResource("3_sinp8")

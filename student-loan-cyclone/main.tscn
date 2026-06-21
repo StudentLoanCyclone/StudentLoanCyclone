@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://lpcgj2pnwkkg"]
+[gd_scene load_steps=11 format=4 uid="uid://lpcgj2pnwkkg"]
 
 [ext_resource type="Script" uid="uid://bfefkea5golix" path="res://camera_3d.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://cbdnrtdnbj3gn" path="res://asset/thebowl/bowl_albedo.png" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cdg4fobkqpjwm" path="res://cyclone_model.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://b5l6gysesfau8" path="res://cyclone_model_swirl.tscn" id="4_1bvp3"]
 
 [sub_resource type="Environment" id="Environment_7dm0k"]
 background_mode = 1
@@ -58,12 +59,17 @@ data = PackedVector3Array(0, -0.4517, -0.3827, 0.108399995, -0.4243, -0.5449, 0.
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.9294806, 0.087856755, -0.35825545, 0, 0.9712217, 0.2381775, 0.3688709, -0.22138138, 0.9027317, 0, -3.9174895, 7.2716346)
+transform = Transform3D(0.9962296, 0.020663295, -0.08425916, -5.496605e-09, 0.9712217, 0.2381775, 0.08675584, -0.23727947, 0.9675598, -0.3044834, -6.8963466, 6.8169074)
 script = ExtResource("1_0xm2m")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.52139693, 0.85331434, 0, -0.85331434, 0.52139693, 0, 6.312695, 1.7362899)
 light_color = Color(0.9311207, 0.99417645, 0.9870418, 1)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 6.312695, 1.7362899)
+light_color = Color(0.9311207, 0.99417645, 0.9870418, 1)
+light_energy = 0.2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7dm0k")
@@ -82,7 +88,7 @@ shape = SubResource("ConcavePolygonShape3D_h2yge")
 debug_color = Color(0.9842692, 0, 0.3406717, 1)
 
 [node name="CycloneModel" parent="." instance=ExtResource("3_h2yge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.53776, 0.43964958, -6.315497)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -9.021, 0)
 
-[node name="CycloneModel2" parent="." instance=ExtResource("3_h2yge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.161695, 0.8018961, -7.1647296)
+[node name="CycloneModelSwirl" parent="." instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -9.021, 0)
