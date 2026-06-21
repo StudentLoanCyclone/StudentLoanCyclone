@@ -46,12 +46,9 @@ func launch():
 	
 
 func attack():
-	print(typeof(target))
 	var chasedir = (target.global_position - global_position).normalized()
-	var target_transform = transform.looking_at(global_position + chasedir, transform.basis.y)
-	
-	transform = transform.interpolate_with(target_transform, 1.0)	
-	linear_velocity = -transform.basis.z * (20)
+
+	linear_velocity = chasedir * 10
 	
 func defend():
 	pass
