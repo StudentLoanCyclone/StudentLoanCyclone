@@ -88,7 +88,7 @@ shape = SubResource("ConcavePolygonShape3D_h2yge")
 debug_color = Color(0.9842692, 0, 0.3406717, 1)
 
 [node name="CycloneModel" parent="." instance=ExtResource("3_h2yge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -9.021, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.530058, -3.1673079, 0)
 
 [node name="CycloneModelSwirl" parent="." instance=ExtResource("4_1bvp3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -9.021, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.281153, -2.9757347, 0)

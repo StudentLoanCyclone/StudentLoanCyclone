@@ -144,10 +144,10 @@ points = PackedVector3Array(0, 0.7915, -1.746, 0, 0.47477603, -1.3970051, -0.171
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wmcot"]
 
-[node name="CycloneModelSwirl" type="Node3D" groups=["spinner"]]
+[node name="CycloneModelSwirl" type="Node3D" groups=["player", "spinner"]]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." groups=["spinner"]]
-mass = 5.0
+[node name="RigidBody3D" type="RigidBody3D" parent="." groups=["player", "spinner"]]
+mass = 30.0
 physics_material_override = SubResource("PhysicsMaterial_i77v7")
 script = ExtResource("1_vic1j")
 
@@ -187,7 +187,7 @@ shape = SubResource("ConvexPolygonShape3D_mxedn")
 [node name="Area3D" type="Area3D" parent="RigidBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
 shape = SubResource("SphereShape3D_wmcot")
 
 [connection signal="body_entered" from="RigidBody3D/Area3D" to="RigidBody3D" method="_on_area_3d_body_entered"]

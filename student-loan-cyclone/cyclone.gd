@@ -1,8 +1,8 @@
 extends RigidBody3D
 
 
-@export var initial_spin :float = 200.00
-@export var spin_decay :float = 5.0
+@export var initial_spin :float = 100.00
+@export var spin_decay :float = 10.0
 
 
 var current_spin: float = 0
@@ -20,22 +20,26 @@ func _physics_process(delta):
 	
 	#apply force
 	angular_velocity.y = current_spin
+	print(current_spin)
 	
 	
 	#wobble when slowing
-	var upright_strength = (current_spin/initial_spin) * 10
+	var upright_strength = (current_spin/initial_spin)
 	var current_upright = global_transform.basis.y
 	var upright_target = Vector3.UP
 	
 	var correction_torque = current_upright.cross(upright_target) * upright_strength
 	
 	apply_torque(correction_torque)
+	
+	linear_velocity.y = clampf(linear_velocity.y,-200, 30)
 
 func _input(event):
-	if event.is_action_pressed("attack"):
-		attack()
-	if event.is_action_pressed("defend"):
-		defend()
+	if self.is_in_group("player"):
+		if event.is_action_pressed("attack"):
+			attack()
+		if event.is_action_pressed("defend"):
+			defend()
 
 func launch():
 	current_spin = initial_spin
@@ -47,13 +51,12 @@ func launch():
 
 func attack():
 	var chasedir = (target.global_position - global_position).normalized()
+	current_spin += 10
 
 	linear_velocity = chasedir * 10
 	
 func defend():
 	pass
-	
-	
 
 
 func _on_area_3d_body_entered(body):
