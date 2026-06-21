@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://yo2nukc7ymcq"
-path="res://.godot/imported/fire_cyclone.gltf-b7ff890ff25baec276a3b2f7a6a39a5e.scn"
+uid="uid://ddq7bhybe7jqn"
+path="res://.godot/imported/fire_cyclone.gltf-b9f21a699630cf63d85be5137daf8db6.scn"
 
 [deps]
 
-source_file="res://asset/spinner/fire_cyclone.gltf"
-dest_files=["res://.godot/imported/fire_cyclone.gltf-b7ff890ff25baec276a3b2f7a6a39a5e.scn"]
+source_file="res://asset/spinner1/fire_cyclone.gltf"
+dest_files=["res://.godot/imported/fire_cyclone.gltf-b9f21a699630cf63d85be5137daf8db6.scn"]
 
 [params]
 

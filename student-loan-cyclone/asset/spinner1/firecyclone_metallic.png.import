@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxo786je6fh0c"
-path.s3tc="res://.godot/imported/firecyclone_roughness.png-4149c3c96c3b3c0772f20fddbfb41812.s3tc.ctex"
+uid="uid://c88knb60i6qjh"
+path.s3tc="res://.godot/imported/firecyclone_metallic.png-13ca76ef876c39b53176201c944a3fff.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://asset/spinner/firecyclone_roughness.png"
-dest_files=["res://.godot/imported/firecyclone_roughness.png-4149c3c96c3b3c0772f20fddbfb41812.s3tc.ctex"]
+source_file="res://asset/spinner1/firecyclone_metallic.png"
+dest_files=["res://.godot/imported/firecyclone_metallic.png-13ca76ef876c39b53176201c944a3fff.s3tc.ctex"]
 
 [params]
 

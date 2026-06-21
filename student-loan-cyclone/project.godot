@@ -14,3 +14,7 @@ config/name="StudentLoanCyclone"
 run/main_scene="uid://lpcgj2pnwkkg"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[rendering]
+
+renderer/rendering_method="mobile"
