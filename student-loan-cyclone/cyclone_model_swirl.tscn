@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://b5l6gysesfau8"]
+[gd_scene load_steps=22 format=4 uid="uid://b5l6gysesfau8"]
 
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="1_vic1j"]
 [ext_resource type="Material" uid="uid://dadflb1dn66mc" path="res://asset/spinner2/s2_plastic.tres" id="2_elyes"]
@@ -144,6 +144,8 @@ points = PackedVector3Array(0, 0.7915, -1.746, 0, 0.47477603, -1.3970051, -0.171
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wmcot"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_elyes"]
+
 [node name="CycloneModelSwirl" type="Node3D" groups=["player", "spinner"]]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." groups=["player", "spinner"]]
@@ -190,4 +192,11 @@ shape = SubResource("ConvexPolygonShape3D_mxedn")
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
 shape = SubResource("SphereShape3D_wmcot")
 
+[node name="Area3D2" type="Area3D" parent="RigidBody3D"]
+transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D2"]
+shape = SubResource("CylinderShape3D_elyes")
+
 [connection signal="body_entered" from="RigidBody3D/Area3D" to="RigidBody3D" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="RigidBody3D/Area3D2" to="RigidBody3D" method="_on_area_3d_2_body_entered"]

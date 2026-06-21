@@ -6,6 +6,7 @@ extends RigidBody3D
 
 
 var current_spin: float = 0
+var is_active : bool = false
 
 var target : Node3D
 
@@ -33,6 +34,10 @@ func _physics_process(delta):
 	apply_torque(correction_torque)
 	
 	linear_velocity.y = clampf(linear_velocity.y,-200, 30)
+	
+	
+	if current_spin <= 0:
+		queue_free()
 
 func _input(event):
 	if self.is_in_group("player"):
@@ -44,20 +49,43 @@ func _input(event):
 func launch():
 	current_spin = initial_spin
 	angular_velocity.y = initial_spin
+	is_active = true
 	
 	angular_velocity.x = randf_range(0,10)
-	angular_velocity.z = randf_range(0,10)
-	
+	angular_velocity.z = randf_range(0,10)	
 
 func attack():
 	var chasedir = (target.global_position - global_position).normalized()
-	current_spin += 10
+	current_spin += 0.0
 
 	linear_velocity = chasedir * 10
-	
+
 func defend():
 	pass
 
-
-func _on_area_3d_body_entered(body):
+func _on_area_3d_body_entered(body): #for detection
 	target = body
+
+
+func _on_area_3d_2_body_entered(body): #for bumpin
+	if body is RigidBody3D:
+		var impact_vector = (body.global_position - global_position).normalized()
+		impact_vector.y = 0
+		
+		var combined_spin = abs(self.current_spin) + abs(body.current_spin)
+		var recoil_force = combined_spin * 2.5
+		
+		body.recieve_impact(impact_vector * recoil_force, current_spin)
+		current_spin -= combined_spin * 0.05
+		
+		
+
+func recieve_impact(force: Vector3, opposing_spin: float):
+	apply_central_impulse(force)
+	
+	current_spin -= abs(opposing_spin) * 0.02
+	
+	
+	
+	
+	
