@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8eqos1a4n6ya"]
+[gd_scene load_steps=8 format=3 uid="uid://c8eqos1a4n6ya"]
 
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="1_80v0w"]
+[ext_resource type="PackedScene" uid="uid://yo2nukc7ymcq" path="res://asset/spinner/fire_cyclone.gltf" id="2_vglei"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i77v7"]
 friction = 0.1
@@ -33,3 +34,6 @@ shape = SubResource("ConvexPolygonShape3D_i77v7")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.20016623, 1.0994463, 0)
 mesh = SubResource("BoxMesh_80v0w")
+
+[node name="fire_cyclone" parent="." instance=ExtResource("2_vglei")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
