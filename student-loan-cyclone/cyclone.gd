@@ -14,7 +14,6 @@ var target : Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	launch()
 
 func _physics_process(delta):
@@ -47,7 +46,7 @@ func _physics_process(delta):
 		pass
 
 func _input(event):
-	if self.is_in_group("player"):
+	if self.is_in_group("player") and target:
 		if event.is_action_pressed("attack"):
 			attack()
 		if event.is_action_pressed("defend"):
@@ -62,6 +61,7 @@ func launch():
 	angular_velocity.z = randf_range(0,10)	
 
 func attack():
+	
 	var chasedir = (target.global_position - global_position).normalized()
 	current_spin += spin_boost
 
@@ -94,9 +94,14 @@ func _on_area_3d_2_body_entered(body): #for bumpin
 		current_spin -= combined_spin * 0.05
 
 func recieve_impact(force: Vector3, opposing_spin: float):
-	apply_central_impulse(force)
-	
-	current_spin -= abs(opposing_spin) * 0.02
+	if target:
+		var target_v = target.linear_velocity
+		print(target_v)
+		print(self.current_spin)
+
+		apply_central_impulse(force + target_v)
+		
+		current_spin -= abs(opposing_spin + target_v.length()) * 0.3
 
 func get_target():
 	return target
