@@ -160,9 +160,11 @@ points = PackedVector3Array(0, 0.7915, -1.746, 0, 0.47477603, -1.3970051, -0.171
 [node name="CycloneModelFire" type="Node3D" groups=["spinner"]]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." groups=["spinner"]]
-mass = 30.0
+mass = 15.0
 physics_material_override = SubResource("PhysicsMaterial_i77v7")
+gravity_scale = 2.0
 script = ExtResource("1_wmcot")
+initial_spin = 200.0
 
 [node name="metal" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
