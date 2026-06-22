@@ -1,8 +1,9 @@
 extends RigidBody3D
 
 
-@export var initial_spin :float = 100.00
-@export var spin_decay :float = 10.0
+@export var initial_spin : float = 100.00
+@export var spin_decay : float = 10.0
+@export var spin_boost : float = 0.0
 
 
 var current_spin: float = 0
@@ -21,7 +22,7 @@ func _physics_process(delta):
 	
 	#apply force
 	angular_velocity.y = current_spin
-	print(current_spin)
+	#print(current_spin)
 	
 	
 	#wobble when slowing
@@ -56,16 +57,23 @@ func launch():
 
 func attack():
 	var chasedir = (target.global_position - global_position).normalized()
-	current_spin += 0.0
+	current_spin += spin_boost
 
 	linear_velocity = chasedir * 10
 
 func defend():
-	pass
+	var distance = target.global_position - global_position
+	print("defend works")
+	
+	if (distance).length() < 20:
+		print("defend")
+		#this is the same as recieve impact but eh
+		target.apply_central_impulse(distance.normalized() * 500)
+		target.current_spin -= abs(current_spin) * 0.02
+		
 
 func _on_area_3d_body_entered(body): #for detection
 	target = body
-
 
 func _on_area_3d_2_body_entered(body): #for bumpin
 	if body is RigidBody3D:
@@ -74,18 +82,10 @@ func _on_area_3d_2_body_entered(body): #for bumpin
 		
 		var combined_spin = abs(self.current_spin) + abs(body.current_spin)
 		var recoil_force = combined_spin * 2.5
-		
 		body.recieve_impact(impact_vector * recoil_force, current_spin)
 		current_spin -= combined_spin * 0.05
-		
-		
 
 func recieve_impact(force: Vector3, opposing_spin: float):
 	apply_central_impulse(force)
 	
 	current_spin -= abs(opposing_spin) * 0.02
-	
-	
-	
-	
-	
