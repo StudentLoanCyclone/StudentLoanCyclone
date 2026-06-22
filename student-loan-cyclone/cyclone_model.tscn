@@ -164,8 +164,8 @@ mass = 15.0
 physics_material_override = SubResource("PhysicsMaterial_i77v7")
 gravity_scale = 2.0
 script = ExtResource("1_wmcot")
-initial_spin = 200.0
-spin_decay = 5.0
+initial_spin = 500.0
+spin_decay = 1.0
 
 [node name="metal" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)

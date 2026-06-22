@@ -26,7 +26,7 @@ func _physics_process(_delta):
 		targetPoint = selfPosition.lerp(enemyPosition, 0.5)
 		look_at(targetPoint)		
 		
-		self.global_position = selfPosition + Vector3(clamp(-targetPoint[0], -3.5, 3.5), 2.5, clamp(-targetPoint[2], -3.5, 3.5))
+		self.global_position = selfPosition + Vector3(clamp(-enemyPosition[0], -3.5, 3.5), 2.5, clamp(-enemyPosition[2], -3.5, 3.5))
 		
 		UItext.text = "Spin: " + str(int(selfRigidbody.current_spin))
 	
