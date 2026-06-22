@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://lpcgj2pnwkkg"]
+[gd_scene load_steps=34 format=4 uid="uid://lpcgj2pnwkkg"]
 
 [ext_resource type="Texture2D" uid="uid://cbdnrtdnbj3gn" path="res://asset/thebowl/bowl_albedo.png" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="3_efxa6"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://c6gctrrvyvm18" path="res://asset/spinner2/swirlcyclone_albedo.png" id="8_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://byxugj3xv773q" path="res://asset/spinner2/swirlcyclone_normal.png" id="9_yaehf"]
 [ext_resource type="Material" uid="uid://bhx4payryrcni" path="res://asset/spinner2/s2_metal.tres" id="10_074og"]
+[ext_resource type="Texture2D" uid="uid://bpxediverfkfs" path="res://asset/stamina_bar/Screenshot 2026-06-22 at 20.54.39.png" id="12_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://cxw5b68lo5s81" path="res://asset/stamina_bar/Screenshot 2026-06-22 at 20.54.47.png" id="13_w48qg"]
 
 [sub_resource type="Environment" id="Environment_7dm0k"]
 background_mode = 1
@@ -241,11 +243,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.530058, -3.1673079, 0)
 [node name="CyclonePlayer" type="Node3D" parent="." groups=["player", "spinner"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.281153, -2.9757347, 0)
 
-[node name="RigidBody3D" type="RigidBody3D" parent="CyclonePlayer" groups=["player", "spinner"]]
+[node name="RigidBody3D" type="RigidBody3D" parent="CyclonePlayer" node_paths=PackedStringArray("selfcamera") groups=["player", "spinner"]]
 mass = 15.0
 physics_material_override = SubResource("PhysicsMaterial_074og")
 gravity_scale = 2.0
 script = ExtResource("3_efxa6")
+selfcamera = NodePath("../Camera3D")
 
 [node name="plastic" type="MeshInstance3D" parent="CyclonePlayer/RigidBody3D"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
@@ -300,6 +303,14 @@ script = ExtResource("4_lquwl")
 transform = Transform3D(1.0000027, 4.284084e-08, -2.6077032e-08, -4.0978193e-08, 1.0000027, 1.2922101e-08, 5.2154064e-08, -1.7229468e-08, 1.0000008, -0.58589154, -0.34389496, -0.60593987)
 text = "TEMP"
 font_size = 16
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CyclonePlayer/Camera3D"]
+offset_right = 364.0
+offset_bottom = 140.0
+step = 0.01
+texture_under = ExtResource("12_ycdy4")
+texture_progress = ExtResource("13_w48qg")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="CyclonePlayer/RigidBody3D/Area3D" to="CyclonePlayer/RigidBody3D" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="CyclonePlayer/RigidBody3D/Area3D2" to="CyclonePlayer/RigidBody3D" method="_on_area_3d_2_body_entered"]

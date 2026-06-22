@@ -12,8 +12,12 @@ var is_active : bool = false
 
 var target : Node3D
 
+@export var  selfcamera : Camera3D
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	launch()
 
 func _physics_process(delta):
@@ -48,9 +52,11 @@ func _physics_process(delta):
 func _input(event):
 	if self.is_in_group("player") and target:
 		if event.is_action_pressed("attack"):
-			attack()
+			if(selfcamera.get_stamina() > 10):
+				attack()
 		if event.is_action_pressed("defend"):
-			defend()
+			if(selfcamera.get_stamina() > 10):
+				defend()
 
 func launch():
 	current_spin = initial_spin
@@ -61,6 +67,7 @@ func launch():
 	angular_velocity.z = randf_range(0,10)	
 
 func attack():
+	selfcamera.set_stamina(30)
 	
 	var chasedir = (target.global_position - global_position).normalized()
 	current_spin += spin_boost
@@ -68,15 +75,14 @@ func attack():
 	linear_velocity = chasedir * 20
 
 func defend():
+	selfcamera.set_stamina(30)
+
 	var distance = target.global_position - global_position
-	print("defend works")
 	
 	if (distance).length() < 20:
-		print("defend")
 		#this is the same as recieve impact but eh
 		target.apply_central_impulse(distance.normalized() * 500)
 		target.current_spin -= abs(current_spin) * 0.02
-		
 
 func _on_area_3d_body_entered(body): #for detection
 	if body != self and body.name != "bowl":
@@ -96,8 +102,6 @@ func _on_area_3d_2_body_entered(body): #for bumpin
 func recieve_impact(force: Vector3, opposing_spin: float):
 	if target:
 		var target_v = target.linear_velocity
-		print(target_v)
-		print(self.current_spin)
 
 		apply_central_impulse(force + target_v)
 		
