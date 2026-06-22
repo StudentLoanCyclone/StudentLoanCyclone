@@ -1,9 +1,10 @@
 extends RigidBody3D
 
 
-@export var initial_spin : float = 100.00
+@export var initial_spin : float = 200.00
 @export var spin_decay : float = 10.0
-@export var spin_boost : float = 0.0
+@export var spin_boost : float = 20.0
+@export var max_spin : float = 300.00
 
 
 var current_spin: float = 0
@@ -20,9 +21,12 @@ func _physics_process(delta):
 	#decay
 	current_spin = move_toward(current_spin, 0, spin_decay * delta)
 	
+	current_spin += (linear_velocity.length()*0.02)	
+	current_spin = clampf(current_spin, 0, max_spin)
+
+	
 	#apply force
 	angular_velocity.y = current_spin
-	#print(current_spin)
 	
 	
 	#wobble when slowing
@@ -35,6 +39,7 @@ func _physics_process(delta):
 	apply_torque(correction_torque)
 	
 	linear_velocity.y = clampf(linear_velocity.y,-200, 30)
+
 	
 	
 	if current_spin <= 0:
@@ -60,7 +65,7 @@ func attack():
 	var chasedir = (target.global_position - global_position).normalized()
 	current_spin += spin_boost
 
-	linear_velocity = chasedir * 10
+	linear_velocity = chasedir * 20
 
 func defend():
 	var distance = target.global_position - global_position

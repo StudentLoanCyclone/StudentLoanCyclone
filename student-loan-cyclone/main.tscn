@@ -246,7 +246,6 @@ mass = 15.0
 physics_material_override = SubResource("PhysicsMaterial_074og")
 gravity_scale = 2.0
 script = ExtResource("3_efxa6")
-initial_spin = 200.0
 
 [node name="plastic" type="MeshInstance3D" parent="CyclonePlayer/RigidBody3D"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
