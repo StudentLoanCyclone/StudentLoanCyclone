@@ -38,7 +38,8 @@ func _physics_process(delta):
 	
 	
 	if current_spin <= 0:
-		queue_free()
+		#queue_free()
+		pass
 
 func _input(event):
 	if self.is_in_group("player"):
@@ -73,7 +74,9 @@ func defend():
 		
 
 func _on_area_3d_body_entered(body): #for detection
-	target = body
+	if body != self and body.name != "bowl":
+		target = body
+		#print(target)
 
 func _on_area_3d_2_body_entered(body): #for bumpin
 	if body is RigidBody3D:
@@ -89,3 +92,6 @@ func recieve_impact(force: Vector3, opposing_spin: float):
 	apply_central_impulse(force)
 	
 	current_spin -= abs(opposing_spin) * 0.02
+
+func get_target():
+	return target
