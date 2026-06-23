@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://lpcgj2pnwkkg"]
+[gd_scene load_steps=35 format=4 uid="uid://lpcgj2pnwkkg"]
 
 [ext_resource type="Texture2D" uid="uid://cbdnrtdnbj3gn" path="res://asset/thebowl/bowl_albedo.png" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="3_efxa6"]
@@ -11,8 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://c6gctrrvyvm18" path="res://asset/spinner2/swirlcyclone_albedo.png" id="8_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://byxugj3xv773q" path="res://asset/spinner2/swirlcyclone_normal.png" id="9_yaehf"]
 [ext_resource type="Material" uid="uid://bhx4payryrcni" path="res://asset/spinner2/s2_metal.tres" id="10_074og"]
-[ext_resource type="Texture2D" uid="uid://bpxediverfkfs" path="res://asset/stamina_bar/Screenshot 2026-06-22 at 20.54.39.png" id="12_ycdy4"]
-[ext_resource type="Texture2D" uid="uid://cxw5b68lo5s81" path="res://asset/stamina_bar/Screenshot 2026-06-22 at 20.54.47.png" id="13_w48qg"]
+[ext_resource type="Texture2D" uid="uid://bcddfg2wvu45n" path="res://asset/health_bar/barOutline.png" id="14_vivmo"]
+[ext_resource type="Theme" uid="uid://d1cuh4lo3hehl" path="res://asset/fonts/main.tres" id="14_w48qg"]
+[ext_resource type="Texture2D" uid="uid://dbjq0v6i758ei" path="res://asset/health_bar/barFillup.png" id="15_2cqfq"]
 
 [sub_resource type="Environment" id="Environment_7dm0k"]
 background_mode = 1
@@ -299,18 +300,71 @@ shape = SubResource("CylinderShape3D_elyes")
 transform = Transform3D(-0.040964965, -0.26614064, 0.9630634, 0.009335574, 0.9637285, 0.26672155, -0.99911696, 0.019916989, -0.036994528, 3.3138523, 2.2102578, 0)
 script = ExtResource("4_lquwl")
 
-[node name="Label3D" type="Label3D" parent="CyclonePlayer/Camera3D"]
-transform = Transform3D(1.0000027, 4.284084e-08, -2.6077032e-08, -4.0978193e-08, 1.0000027, 1.2922101e-08, 5.2154064e-08, -1.7229468e-08, 1.0000008, -0.58589154, -0.34389496, -0.60593987)
-text = "TEMP"
-font_size = 16
+[node name="CanvasLayer" type="CanvasLayer" parent="CyclonePlayer/Camera3D"]
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CyclonePlayer/Camera3D"]
-offset_right = 364.0
-offset_bottom = 140.0
+[node name="StaminaBar" type="TextureProgressBar" parent="CyclonePlayer/Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 566.0
+offset_top = 199.0
+offset_right = 3316.0
+offset_bottom = 1335.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(-0.1, 0.1)
 step = 0.01
-texture_under = ExtResource("12_ycdy4")
-texture_progress = ExtResource("13_w48qg")
+texture_under = ExtResource("14_vivmo")
+texture_over = ExtResource("14_vivmo")
+texture_progress = ExtResource("15_2cqfq")
+tint_progress = Color(0, 1, 0, 1)
 metadata/_edit_use_anchors_ = true
+
+[node name="Stamina" type="RichTextLabel" parent="CyclonePlayer/Camera3D/CanvasLayer"]
+offset_left = 921.0
+offset_top = 521.00006
+offset_right = 1021.0
+offset_bottom = 561.00006
+scale = Vector2(1.25, 1.25)
+theme = ExtResource("14_w48qg")
+text = "STAMINA"
+fit_content = true
+autowrap_mode = 0
+
+[node name="HealthBar" type="TextureProgressBar" parent="CyclonePlayer/Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -566.0
+offset_top = 199.0
+offset_right = 2184.0
+offset_bottom = 1335.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+max_value = 200.0
+step = 0.01
+allow_greater = true
+texture_under = ExtResource("14_vivmo")
+texture_over = ExtResource("14_vivmo")
+texture_progress = ExtResource("15_2cqfq")
+tint_progress = Color(1, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="RichTextLabel" parent="CyclonePlayer/Camera3D/CanvasLayer"]
+offset_left = 128.0
+offset_top = 520.0
+offset_right = 228.0
+offset_bottom = 560.0
+scale = Vector2(1.25, 1.25)
+theme = ExtResource("14_w48qg")
+text = "Spin"
+fit_content = true
+autowrap_mode = 0
 
 [connection signal="body_entered" from="CyclonePlayer/RigidBody3D/Area3D" to="CyclonePlayer/RigidBody3D" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="CyclonePlayer/RigidBody3D/Area3D2" to="CyclonePlayer/RigidBody3D" method="_on_area_3d_2_body_entered"]
