@@ -10,8 +10,8 @@ var targetPoint
 
 var UItext
 
-@onready var stamina_bar = $CanvasLayer/StaminaBar
-@onready var health_bar = $CanvasLayer/HealthBar
+@onready var stamina_bar = $CanvasLayer/MarginContainer/HBoxContainer/StaminaBox/StaminaBar
+@onready var health_bar = $CanvasLayer/MarginContainer/HBoxContainer/HealthBox/HealthBar
 
 
 

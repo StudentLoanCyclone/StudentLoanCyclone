@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://b5l6gysesfau8"]
+[gd_scene load_steps=28 format=4 uid="uid://b5l6gysesfau8"]
 
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="1_4ymqu"]
 [ext_resource type="Material" uid="uid://bhx4payryrcni" path="res://asset/spinner2/s2_metal.tres" id="2_xd22q"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://bcddfg2wvu45n" path="res://asset/health_bar/barOutline.png" id="10_flj1h"]
 [ext_resource type="Texture2D" uid="uid://dbjq0v6i758ei" path="res://asset/health_bar/barFillup.png" id="11_0lnko"]
 [ext_resource type="Theme" uid="uid://d1cuh4lo3hehl" path="res://asset/fonts/main.tres" id="12_4yi5x"]
+[ext_resource type="Texture2D" uid="uid://03kab7tlw6xw" path="res://asset/stamina_bar/staminaOutline.png" id="13_0lnko"]
+[ext_resource type="Texture2D" uid="uid://b5c3k6jsjh24w" path="res://asset/stamina_bar/staminaFillup.png" id="14_4yi5x"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_074og"]
 friction = 0.1
@@ -217,52 +219,42 @@ script = ExtResource("9_uh8bv")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
 
-[node name="StaminaBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 566.0
-offset_top = 199.0
-offset_right = 3316.0
-offset_bottom = 1335.0
+[node name="MarginContainer" type="MarginContainer" parent="Camera3D/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(-0.1, 0.1)
-step = 0.01
-texture_under = ExtResource("10_flj1h")
-texture_over = ExtResource("10_flj1h")
-texture_progress = ExtResource("11_0lnko")
-tint_progress = Color(0, 1, 0, 1)
-metadata/_edit_use_anchors_ = true
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="Stamina" type="RichTextLabel" parent="Camera3D/CanvasLayer"]
-offset_left = 921.0
-offset_top = 521.00006
-offset_right = 1021.0
-offset_bottom = 561.00006
-scale = Vector2(1.25, 1.25)
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HealthBox" type="VBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+alignment = 2
+
+[node name="Health" type="RichTextLabel" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer/HealthBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = ExtResource("12_4yi5x")
-text = "STAMINA"
+text = "Spin"
 fit_content = true
 autowrap_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="HealthBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -566.0
-offset_top = 199.0
-offset_right = 2184.0
-offset_bottom = 1335.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.1, 0.1)
-max_value = 200.0
+[node name="HealthBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer/HealthBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 250.0
 step = 0.01
 allow_greater = true
 texture_under = ExtResource("10_flj1h")
@@ -271,16 +263,35 @@ texture_progress = ExtResource("11_0lnko")
 tint_progress = Color(1, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Health" type="RichTextLabel" parent="Camera3D/CanvasLayer"]
-offset_left = 128.0
-offset_top = 520.0
-offset_right = 228.0
-offset_bottom = 560.0
-scale = Vector2(1.25, 1.25)
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StaminaBox" type="VBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+alignment = 2
+
+[node name="Stamina" type="RichTextLabel" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer/StaminaBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = ExtResource("12_4yi5x")
-text = "Spin"
+text = "STAMINA"
 fit_content = true
 autowrap_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="StaminaBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer/StaminaBox"]
+layout_mode = 2
+step = 0.01
+fill_mode = 1
+texture_under = ExtResource("13_0lnko")
+texture_over = ExtResource("13_0lnko")
+texture_progress = ExtResource("14_4yi5x")
+tint_progress = Color(0, 1, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="RigidBody3D/Area3D" to="RigidBody3D" method="_on_area_3d_body_entered"]
