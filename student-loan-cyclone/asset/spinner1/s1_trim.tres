@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://iuco4pcgipaf" path="res://asset/spinner1/firecyclone_roughness.png" id="4_ndrlh"]
 
 [resource]
-albedo_color = Color(0.9999997, 0.4900421, 0.047419153, 1)
 albedo_texture = ExtResource("1_v0lk0")
 metallic = 1.0
 metallic_texture = ExtResource("2_8jprs")

@@ -1,5 +1,8 @@
 extends RigidBody3D
 
+# The player and enemy cyclones both use the same script.
+# They are set up in different scenes so that the player can include the
+# necessary camera and UI elements, and the enemy can exlude them.
 
 @export var initial_spin : float = 200.00
 @export var spin_decay : float = 10.0
@@ -16,11 +19,19 @@ var target : Node3D
 @export var max_stamina := 100.0
 var current_stamina = max_stamina
 
-@export var  selfcamera : Camera3D
+@export var selfcamera : Camera3D
+
+@export var plastic1 : MeshInstance3D
+@export var plastic2 : MeshInstance3D
+@export var trim : MeshInstance3D
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	if !self.is_in_group("player"):
+		randomize_colour()
+	
 	launch()
 
 
@@ -48,6 +59,18 @@ func _physics_process(delta):
 	
 	current_stamina = move_toward(current_stamina, 100.0, 10.0 * delta)
 	current_stamina = clamp(current_stamina + (5.0 * delta), 0.0, 100.0)
+	
+	if abs(self.global_position.x) > 27 or abs(self.global_position.z) > 27 or (abs(self.global_position.x) + abs(self.global_position.z)) > 40:
+		if self.is_in_group("player"):
+			self.global_position = Vector3(0, -10, 0)
+			self.global_rotation = Vector3(0, 0, 0)
+			self.linear_velocity = self.linear_velocity/2
+			
+		else:
+			queue_free()
+		
+		
+		
 
 	if current_spin <= 0:
 		#queue_free()
@@ -134,3 +157,40 @@ func get_target():
 
 func get_stamina():
 	return current_stamina
+
+
+
+func randomize_colour():
+	print("randomizing colour....")
+	
+	# These colour combinations,a nd their reverses, are what the enemy will be randomised with.
+	var colour_combos: Array[Array] = [
+	[Color("#ff7d0c"), Color("#e6bb62")], # Orange and Yellow
+	[Color("#ef002b"), Color("#b98837")], # Red and Gold
+	[Color("#a933ff"), Color("#00cf38")], # Green and Purple
+	[Color("#0085da"), Color("#d8c300")], # Blue and Yellow
+	[Color("#000000"), Color("#ffffff")], # Black and White
+	[Color("#8601cd"), Color("#ff4fa9")]  # Pink and Purple
+	]
+	
+	var colour_num = randi()%6
+	var colour_combo = colour_combos[colour_num]
+	
+	var random_order = randi()%2
+	
+	if random_order == 0:
+		print("order 1...")
+		print(plastic1.get_surface_override_material(0))
+		plastic2.get_surface_override_material(0).albedo_color = colour_combo[0]
+		trim.get_surface_override_material(0).albedo_color = colour_combo[1]
+		
+	else:
+		print("order 2...")
+		plastic1.get_surface_override_material(0).albedo_color = colour_combo[1]
+		plastic2.get_surface_override_material(0).albedo_color = colour_combo[1]
+		trim.get_surface_override_material(0).albedo_color = colour_combo[0]
+	
+	
+	
+	
+	

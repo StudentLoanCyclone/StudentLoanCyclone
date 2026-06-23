@@ -17,7 +17,7 @@ var UItext
 
 func _ready():
 	selfRigidbody = get_parent().get_node("RigidBody3D")
-	UItext = get_node("Label3D")
+	#UItext = get_node("Label3D")
 	
 	
 

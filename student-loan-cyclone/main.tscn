@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cbdnrtdnbj3gn" path="res://asset/thebowl/bowl_albedo.png" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="3_efxa6"]
-[ext_resource type="PackedScene" uid="uid://cdg4fobkqpjwm" path="res://cyclone_model.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cdg4fobkqpjwm" path="res://cyclone_enemy.tscn" id="3_h2yge"]
 [ext_resource type="Material" uid="uid://dadflb1dn66mc" path="res://asset/spinner2/s2_plastic.tres" id="4_dg77c"]
 [ext_resource type="Script" uid="uid://b8ps4du3bv34v" path="res://camera_tracked.gd" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://c04v35i6f1xfj" path="res://asset/spinner1/firecyclone_albedo.png" id="5_ycdy4"]
@@ -244,12 +244,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.530058, -3.1673079, 0)
 [node name="CyclonePlayer" type="Node3D" parent="." groups=["player", "spinner"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.281153, -2.9757347, 0)
 
-[node name="RigidBody3D" type="RigidBody3D" parent="CyclonePlayer" node_paths=PackedStringArray("selfcamera") groups=["player", "spinner"]]
+[node name="RigidBody3D" type="RigidBody3D" parent="CyclonePlayer" node_paths=PackedStringArray("selfcamera", "plastic1", "plastic2", "trim") groups=["player", "spinner"]]
 mass = 15.0
 physics_material_override = SubResource("PhysicsMaterial_074og")
 gravity_scale = 2.0
 script = ExtResource("3_efxa6")
 selfcamera = NodePath("../Camera3D")
+plastic1 = NodePath("plastic")
+plastic2 = NodePath("plastic2")
+trim = NodePath("trim")
 
 [node name="plastic" type="MeshInstance3D" parent="CyclonePlayer/RigidBody3D"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
@@ -332,6 +335,7 @@ theme = ExtResource("14_w48qg")
 text = "STAMINA"
 fit_content = true
 autowrap_mode = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="CyclonePlayer/Camera3D/CanvasLayer"]
 anchors_preset = 8
@@ -365,6 +369,7 @@ theme = ExtResource("14_w48qg")
 text = "Spin"
 fit_content = true
 autowrap_mode = 0
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="CyclonePlayer/RigidBody3D/Area3D" to="CyclonePlayer/RigidBody3D" method="_on_area_3d_body_entered"]
 [connection signal="body_entered" from="CyclonePlayer/RigidBody3D/Area3D2" to="CyclonePlayer/RigidBody3D" method="_on_area_3d_2_body_entered"]
