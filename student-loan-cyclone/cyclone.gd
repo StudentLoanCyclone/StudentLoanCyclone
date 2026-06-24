@@ -25,6 +25,8 @@ var current_stamina = max_stamina
 @export var plastic2 : MeshInstance3D
 @export var trim : MeshInstance3D
 
+var defence_state = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,6 +55,9 @@ func _physics_process(delta):
 	apply_torque(correction_torque)
 	
 	linear_velocity.y = clampf(linear_velocity.y,-200, 30)
+	
+	linear_velocity.x = clampf(linear_velocity.x,-15, 15)
+	linear_velocity.z = clampf(linear_velocity.z,-15, 15)
 	
 	current_stamina = move_toward(current_stamina, 100.0, 10.0 * delta)
 	current_stamina = clamp(current_stamina + (5.0 * delta), 0.0, 100.0)
@@ -115,6 +120,22 @@ func defend():
 		#this is the same as recieve impact but eh
 		target.apply_central_impulse(distance.normalized() * 500)
 		target.current_spin -= abs(current_spin) * 0.02
+		
+	var trim_colour = trim.get_surface_override_material(0).albedo_color
+	
+	plastic1.get_surface_override_material(0).emission = trim_colour
+	plastic2.get_surface_override_material(0).emission = trim_colour
+	trim.get_surface_override_material(0).emission = trim_colour
+	
+	defence_state = true
+	
+	await get_tree().create_timer(0.5).timeout
+	
+	plastic1.get_surface_override_material(0).emission = Color()
+	plastic2.get_surface_override_material(0).emission = Color()
+	trim.get_surface_override_material(0).emission = Color()
+	
+	defence_state = false
 
 
 

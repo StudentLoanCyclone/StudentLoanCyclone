@@ -12,5 +12,7 @@ metallic = 1.0
 metallic_specular = 0.18
 metallic_texture = ExtResource("2_rojso")
 roughness_texture = ExtResource("4_jt017")
+emission_enabled = true
+emission_energy_multiplier = 16.0
 normal_enabled = true
 normal_texture = ExtResource("3_jtvtp")
