@@ -1,3 +1,88 @@
-[gd_scene format=3 uid="uid://b6h08spqh03t8"]
+[gd_scene load_steps=6 format=3 uid="uid://b6h08spqh03t8"]
 
-[node name="MainMenu" type="MarginContainer"]
+[ext_resource type="Texture2D" uid="uid://b36ltl82233pc" path="res://asset/menu/titleScreenLogo.png" id="1_fu7sn"]
+[ext_resource type="Script" uid="uid://6em7sdrfum1" path="res://main_menu.gd" id="1_jix8l"]
+[ext_resource type="FontFile" uid="uid://dqunlw2285sc4" path="res://asset/fonts/Ethnocentric-Regular.otf" id="2_jix8l"]
+[ext_resource type="Texture2D" uid="uid://c67gso8xd6rb2" path="res://asset/menu/titleScreenRender.png" id="3_glbon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nlkkf"]
+bg_color = Color(0.07058824, 0.09803922, 0.16078432, 1)
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nlkkf")
+script = ExtResource("1_jix8l")
+
+[node name="MainMenu" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 175
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+texture = ExtResource("1_fu7sn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 150
+
+[node name="Start" type="Button" parent="MainMenu/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 1)
+theme_override_colors/font_pressed_color = Color(0.28627452, 0.5647059, 0.8039216, 1)
+theme_override_colors/font_hover_color = Color(0.80784315, 0.6039216, 0.28235295, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("2_jix8l")
+theme_override_font_sizes/font_size = 50
+text = "START GAME"
+flat = true
+
+[node name="Instructions" type="Button" parent="MainMenu/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0.28627452, 0.5647059, 0.8039216, 1)
+theme_override_colors/font_hover_color = Color(0.80784315, 0.6039216, 0.28235295, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("2_jix8l")
+theme_override_font_sizes/font_size = 50
+text = "INSTRUCTIONS"
+flat = true
+
+[node name="Quit" type="Button" parent="MainMenu/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_pressed_color = Color(0.28627452, 0.5647059, 0.8039216, 1)
+theme_override_colors/font_hover_color = Color(0.80784315, 0.6039216, 0.28235295, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("2_jix8l")
+theme_override_font_sizes/font_size = 50
+text = "QUIT"
+flat = true
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="MainMenu/HBoxContainer/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("3_glbon")
+
+[connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/VBoxContainer/Instructions" to="." method="_on_instructions_pressed"]
+[connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

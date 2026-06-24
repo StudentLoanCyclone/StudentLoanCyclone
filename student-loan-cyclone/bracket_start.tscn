@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dln06skt2r5dp"]
+
+[ext_resource type="Script" uid="uid://b4c3b7drctpe8" path="res://bracket_start.gd" id="1_pgxpk"]
+[ext_resource type="VideoStream" uid="uid://xhqnfubj3cnu" path="res://asset/bracket/bracket_start.ogv" id="1_wydnw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgxpk"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="BracketStart" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pgxpk")
+script = ExtResource("1_pgxpk")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 2
+stream = ExtResource("1_wydnw")
+autoplay = true

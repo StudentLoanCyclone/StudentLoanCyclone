@@ -64,7 +64,7 @@ func _physics_process(delta):
 		if self.is_in_group("player"):
 			self.global_position = Vector3(0, -10, 0)
 			self.global_rotation = Vector3(0, 0, 0)
-			self.linear_velocity = self.linear_velocity/2
+			self.linear_velocity = Vector3(0, 0, 0)
 			
 		else:
 			queue_free()
