@@ -1,6 +1,6 @@
 extends Node
 
-var player_start_spin
+var player_start_spin = 100
 var number_rounds_complete
 
 # Called when the node enters the scene tree for the first time.

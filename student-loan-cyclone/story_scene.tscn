@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctsgy0tflfd66"]
+
+[ext_resource type="Script" uid="uid://6em7sdrfum1" path="res://main_menu.gd" id="1_mmiqm"]
+[ext_resource type="Script" uid="uid://cq3x4m1hdmfer" path="res://story_menu.gd" id="2_mmiqm"]
+[ext_resource type="Texture2D" uid="uid://b36ltl82233pc" path="res://asset/menu/titleScreenLogo.png" id="2_n3x6s"]
+[ext_resource type="Texture2D" uid="uid://c67gso8xd6rb2" path="res://asset/menu/titleScreenRender.png" id="4_dv2j7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nlkkf"]
+bg_color = Color(0.07058824, 0.09803922, 0.16078432, 1)
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nlkkf")
+script = ExtResource("1_mmiqm")
+
+[node name="StoryMenu" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+script = ExtResource("2_mmiqm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StoryMenu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StoryMenu/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 125
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="StoryMenu/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+texture = ExtResource("2_n3x6s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StoryMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 150
+
+[node name="RichTextLabel" type="RichTextLabel" parent="StoryMenu/HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 520)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="StoryMenu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="StoryMenu/HBoxContainer/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("4_dv2j7")

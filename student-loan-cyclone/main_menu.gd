@@ -1,6 +1,6 @@
 extends PanelContainer
 
-var start_bracket_scene = preload("res://bracket_start.tscn")
+var start_bracket_scene = preload("res://story_scene.tscn")
 var instructions_scene = preload("res://bracket_start.tscn")
 
 # Called when the node enters the scene tree for the first time.
