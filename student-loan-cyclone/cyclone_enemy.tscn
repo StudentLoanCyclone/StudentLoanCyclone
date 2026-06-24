@@ -164,7 +164,6 @@ mass = 15.0
 physics_material_override = SubResource("PhysicsMaterial_i77v7")
 gravity_scale = 2.0
 script = ExtResource("1_hkboi")
-initial_spin = 500.0
 plastic1 = NodePath("plastic")
 plastic2 = NodePath("plastic2")
 trim = NodePath("trim")

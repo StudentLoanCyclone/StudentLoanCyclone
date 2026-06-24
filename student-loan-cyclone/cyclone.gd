@@ -4,7 +4,7 @@ extends RigidBody3D
 # They are set up in different scenes so that the player can include the
 # necessary camera and UI elements, and the enemy can exlude them.
 
-@export var initial_spin : float = 200.00
+@export var initial_spin : float = GlobalManager.player_start_spin
 @export var spin_decay : float = 10.0
 @export var spin_boost : float = 20.0
 @export var max_spin : float = 300.00

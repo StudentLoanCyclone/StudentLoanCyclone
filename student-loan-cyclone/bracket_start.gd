@@ -4,7 +4,7 @@ extends PanelContainer
 var donePlaying = false
 var slideSpeed = 1
 
-var scene_transition = preload("res://main.tscn")
+var scene_transition = preload("res://launch.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
