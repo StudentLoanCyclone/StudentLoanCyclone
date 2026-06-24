@@ -4,10 +4,10 @@ extends RigidBody3D
 # They are set up in different scenes so that the player can include the
 # necessary camera and UI elements, and the enemy can exlude them.
 
-@export var initial_spin : float = 200.00
-@export var spin_decay : float = 10.0
+@export var initial_spin : float = 200 * (GlobalManager.number_rounds_complete + 1)
+@export var spin_decay : float = 2.5
 @export var spin_boost : float = 20.0
-@export var max_spin : float = 300.00
+@export var max_spin : float = 200 * (GlobalManager.number_rounds_complete + 1)
 
 
 var current_spin: float = 0
@@ -49,7 +49,7 @@ func _physics_process(delta):
 	#Spin decay.
 	current_spin = move_toward(current_spin, 0, spin_decay * delta)
 	
-	current_spin += (linear_velocity.length()*0.02)	
+	#current_spin += (linear_velocity.length()*0.02)	
 	current_spin = clampf(current_spin, 0, max_spin)
 
 	#Apply angular velocity for spin.
@@ -121,27 +121,20 @@ func _update_state():
 func _attack():
 	#enemy attack should also be about deciding if it can and should
 	
-	if(current_stamina >= 50):
-		current_stamina -= 50
+	if(current_stamina >= 33):
+		current_stamina -= 33
 		
 		var chasedir = (target.global_position - global_position).normalized()
 		current_spin += spin_boost
 
-		linear_velocity = chasedir * 20
+		linear_velocity = chasedir * 25
 
 
 
 func _defend():
-	if (current_stamina >= 50):
-		current_stamina -= 50
-
-		var distance = target.global_position - global_position
-		
-		if (distance).length() < 20:
-			#this is the same as recieve impact but eh
-			target.apply_central_impulse(distance.normalized() * 500)
-			target.current_spin -= abs(current_spin) * 0.02
-			
+	if (current_stamina >= 33):
+		current_stamina -= 33
+	
 		var trim_colour = trim.get_surface_override_material(0).albedo_color
 	
 		plastic1.get_surface_override_material(0).emission = trim_colour
@@ -167,25 +160,10 @@ func _on_area_3d_body_entered(body): #for detection
 
 
 
-func _on_area_3d_2_body_entered(body): #for bumpin
-	if body is RigidBody3D and body != self and body.name != "bowl":
-		var impact_vector = (body.global_position - global_position).normalized()
-		impact_vector.y = 0
-		
-		var combined_spin = abs(self.current_spin) + abs(body.current_spin)
-		var recoil_force = combined_spin * 2.5
-		body.recieve_impact(impact_vector * recoil_force, current_spin)
-		current_spin -= combined_spin * 0.05
-
-
-
-func recieve_impact(force: Vector3, opposing_spin: float):
+func recieve_impact(force: Vector3):
 	if target:
 		var target_v = target.linear_velocity
-
 		apply_central_impulse(force + target_v)
-		
-		current_spin -= abs(opposing_spin + target_v.length()) * 0.3
 
 
 

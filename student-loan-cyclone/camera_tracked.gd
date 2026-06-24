@@ -10,8 +10,10 @@ var targetPoint
 
 var UItext
 
-@onready var stamina_bar = $CanvasLayer/MarginContainer/HBoxContainer/StaminaBox/StaminaBar
-@onready var health_bar = $CanvasLayer/MarginContainer/HBoxContainer/HealthBox/HealthBar
+@onready var stamina_bar = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/StaminaBox/StaminaBar
+@onready var health_bar = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/HealthBox/HealthBar
+@onready var enemy_bar = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainerTop/EnemyBar
+@onready var enemy_spin = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainerTop/EnemySpin
 
 
 
@@ -38,3 +40,8 @@ func _physics_process(delta):
 		
 		stamina_bar.value = selfRigidbody.current_stamina
 		health_bar.value = selfRigidbody.current_spin
+		
+		enemy_bar.max_value = enemyRigidbody.initial_spin
+		enemy_bar.value = enemyRigidbody.current_spin
+		enemy_spin.text = str(int(enemyRigidbody.current_spin))
+		enemy_bar.tint_progress = enemyRigidbody.trim.get_surface_override_material(0).albedo_color

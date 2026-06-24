@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://b5l6gysesfau8"]
+[gd_scene load_steps=31 format=4 uid="uid://b5l6gysesfau8"]
 
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="1_4ymqu"]
 [ext_resource type="Material" uid="uid://bhx4payryrcni" path="res://asset/spinner2/s2_metal.tres" id="2_xd22q"]
@@ -9,8 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://bgnmyyn61h5dm" path="res://asset/spinner1/firecyclone_normal.png" id="7_0lnko"]
 [ext_resource type="Material" uid="uid://dir2sb3vmtx3n" path="res://asset/spinner2/s2_trim.tres" id="8_4yi5x"]
 [ext_resource type="Script" uid="uid://b8ps4du3bv34v" path="res://camera_tracked.gd" id="9_uh8bv"]
+[ext_resource type="FontFile" uid="uid://dqunlw2285sc4" path="res://asset/fonts/Ethnocentric-Regular.otf" id="10_3bw3t"]
 [ext_resource type="Texture2D" uid="uid://bcddfg2wvu45n" path="res://asset/health_bar/barOutline.png" id="10_flj1h"]
+[ext_resource type="Texture2D" uid="uid://dyasyxdwrwf7p" path="res://asset/enemy_bar/bar_frame.png" id="10_p843i"]
 [ext_resource type="Texture2D" uid="uid://dbjq0v6i758ei" path="res://asset/health_bar/barFillup.png" id="11_0lnko"]
+[ext_resource type="Texture2D" uid="uid://0n56sd4gm0gy" path="res://asset/enemy_bar/bar_fill.png" id="11_3bw3t"]
 [ext_resource type="Theme" uid="uid://d1cuh4lo3hehl" path="res://asset/fonts/main.tres" id="12_4yi5x"]
 [ext_resource type="Texture2D" uid="uid://03kab7tlw6xw" path="res://asset/stamina_bar/staminaOutline.png" id="13_0lnko"]
 [ext_resource type="Texture2D" uid="uid://b5c3k6jsjh24w" path="res://asset/stamina_bar/staminaFillup.png" id="14_4yi5x"]
@@ -159,6 +162,7 @@ mass = 15.0
 physics_material_override = SubResource("PhysicsMaterial_074og")
 gravity_scale = 2.0
 script = ExtResource("1_4ymqu")
+spin_decay = 0.0
 plastic1 = NodePath("plastic")
 plastic2 = NodePath("plastic2")
 trim = NodePath("trim")
@@ -229,17 +233,54 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 75
 theme_override_constants/margin_bottom = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="HBoxContainerTop" type="HBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/separation = 36
+
+[node name="Label" type="Label" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainerTop"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_fonts/font = ExtResource("10_3bw3t")
+theme_override_font_sizes/font_size = 32
+text = "Enemy Spin"
+
+[node name="EnemyBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainerTop"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+max_value = 250.0
+step = 0.01
+value = 250.0
+allow_greater = true
+texture_under = ExtResource("10_p843i")
+texture_over = ExtResource("10_p843i")
+texture_progress = ExtResource("11_3bw3t")
+tint_progress = Color(1, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemySpin" type="Label" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainerTop"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("10_3bw3t")
+theme_override_font_sizes/font_size = 32
+text = "250"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="HealthBox" type="VBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="HealthBox" type="VBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 alignment = 2
 
-[node name="Health" type="RichTextLabel" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer/HealthBox"]
+[node name="Health" type="RichTextLabel" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/HealthBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -249,7 +290,7 @@ fit_content = true
 autowrap_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="HealthBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer/HealthBox"]
+[node name="HealthBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/HealthBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -262,17 +303,17 @@ texture_progress = ExtResource("11_0lnko")
 tint_progress = Color(1, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StaminaBox" type="VBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="StaminaBox" type="VBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 alignment = 2
 
-[node name="Stamina" type="RichTextLabel" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer/StaminaBox"]
+[node name="Stamina" type="RichTextLabel" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/StaminaBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -282,7 +323,7 @@ fit_content = true
 autowrap_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="StaminaBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer/MarginContainer/HBoxContainer/StaminaBox"]
+[node name="StaminaBar" type="TextureProgressBar" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/StaminaBox"]
 layout_mode = 2
 step = 0.01
 fill_mode = 1

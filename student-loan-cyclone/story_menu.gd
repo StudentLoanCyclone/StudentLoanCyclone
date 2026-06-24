@@ -16,7 +16,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if stringIndex < len(story_text) and fcount%3==0:
+	if stringIndex < len(story_text) and fcount%2==0:
 		var add_text = story_text[stringIndex]
 		
 		if add_text == '#':
@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 		stringIndex += 1
 	
 	if stringIndex >= len(story_text):
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(3).timeout
 		get_tree().change_scene_to_packed(scene_transition)
 		
 	

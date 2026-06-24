@@ -5,7 +5,7 @@ extends RigidBody3D
 # necessary camera and UI elements, and the enemy can exlude them.
 
 @export var initial_spin : float = GlobalManager.player_start_spin
-@export var spin_decay : float = 10.0
+@export var spin_decay : float = 2.5
 @export var spin_boost : float = 20.0
 @export var max_spin : float = 300.00
 
@@ -102,25 +102,18 @@ func launch():
 
 
 func attack():
-	current_stamina -= 50
+	current_stamina -= 33
 	
 	var chasedir = (target.global_position - global_position).normalized()
 	current_spin += spin_boost
 
-	linear_velocity = chasedir * 20
+	linear_velocity = chasedir * 25
 
 
 
 func defend():
-	current_stamina -= 30
-
-	var distance = target.global_position - global_position
+	current_stamina -= 33
 	
-	if (distance).length() < 20:
-		#this is the same as recieve impact but eh
-		target.apply_central_impulse(distance.normalized() * 500)
-		target.current_spin -= abs(current_spin) * 0.02
-		
 	var trim_colour = trim.get_surface_override_material(0).albedo_color
 	
 	plastic1.get_surface_override_material(0).emission = trim_colour
@@ -147,24 +140,59 @@ func _on_area_3d_body_entered(body): #for detection
 
 
 func _on_area_3d_2_body_entered(body): #for bumpin
-	if body is RigidBody3D and body != self and body.name != "bowl":
+	if body.name == "EnemyRigidBody3D":
+		var faster
 		var impact_vector = (body.global_position - global_position).normalized()
 		impact_vector.y = 0
 		
+		var self_velocity = self.linear_velocity
+		var target_velocity = body.linear_velocity
+		self_velocity.y = 0
+		target_velocity.y = 0
+		
 		var combined_spin = abs(self.current_spin) + abs(body.current_spin)
 		var recoil_force = combined_spin * 2.5
-		body.recieve_impact(impact_vector * recoil_force, current_spin)
-		current_spin -= combined_spin * 0.05
+		
+		if target_velocity.length() > self_velocity.length():
+			faster = false
+			
+			if defence_state == false:
+				body.linear_velocity = -impact_vector
+				body.current_spin += self.current_spin/25
+				
+				self.recieve_impact(impact_vector * recoil_force)
+				self.current_spin -= body.current_spin/4
+	
+			else:
+				body.recieve_impact(-impact_vector * recoil_force)
+				body.current_spin -= self.current_spin/4
+				
+				self.linear_velocity = impact_vector
+				self.current_spin += body.current_spin/25
+			
+		else:
+			faster = true
+			
+			if body.defence_state == false:
+				body.recieve_impact(-impact_vector * recoil_force)
+				body.current_spin -= self.current_spin/4
+				
+				self.linear_velocity = impact_vector
+				self.current_spin += body.current_spin/25
+	
+			else:
+				body.linear_velocity = -impact_vector
+				body.current_spin += self.current_spin/25
+				
+				self.recieve_impact(impact_vector * recoil_force)
+				self.current_spin -= body.current_spin/4
 
 
 
-func recieve_impact(force: Vector3, opposing_spin: float):
+func recieve_impact(force: Vector3):
 	if target:
 		var target_v = target.linear_velocity
-
 		apply_central_impulse(force + target_v)
-		
-		current_spin -= abs(opposing_spin + target_v.length()) * 0.3
 
 
 

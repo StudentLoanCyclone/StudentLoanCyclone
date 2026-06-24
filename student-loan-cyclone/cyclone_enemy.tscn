@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=4 uid="uid://cdg4fobkqpjwm"]
 
-[ext_resource type="Script" path="res://cyclone_enemy.gd" id="1_hkboi"]
+[ext_resource type="Script" uid="uid://cjtbydmae5hbx" path="res://cyclone_enemy.gd" id="1_hkboi"]
 [ext_resource type="Texture2D" uid="uid://c04v35i6f1xfj" path="res://asset/spinner1/firecyclone_albedo.png" id="2_mxedn"]
 [ext_resource type="Texture2D" uid="uid://bgnmyyn61h5dm" path="res://asset/spinner1/firecyclone_normal.png" id="3_i6l6p"]
 [ext_resource type="Material" uid="uid://cs60ffn1gff1m" path="res://asset/spinner1/s1_metal.tres" id="4_cywgi"]
@@ -159,63 +159,64 @@ points = PackedVector3Array(0, 0.7915, -1.746, 0, 0.47477603, -1.3970051, -0.171
 
 [node name="CycloneModelFire" type="Node3D" groups=["spinner"]]
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." node_paths=PackedStringArray("plastic1", "plastic2", "trim") groups=["spinner"]]
+[node name="EnemyRigidBody3D" type="RigidBody3D" parent="." node_paths=PackedStringArray("plastic1", "plastic2", "trim") groups=["spinner"]]
 mass = 15.0
 physics_material_override = SubResource("PhysicsMaterial_i77v7")
 gravity_scale = 2.0
 script = ExtResource("1_hkboi")
+spin_decay = 0.0
 plastic1 = NodePath("plastic")
 plastic2 = NodePath("plastic2")
 trim = NodePath("trim")
 
-[node name="metal" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="metal" type="MeshInstance3D" parent="EnemyRigidBody3D"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 material_override = ExtResource("4_cywgi")
 mesh = SubResource("ArrayMesh_wmcot")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("4_cywgi")
 
-[node name="plastic" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="plastic" type="MeshInstance3D" parent="EnemyRigidBody3D"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 material_override = ExtResource("5_0gelw")
 mesh = SubResource("ArrayMesh_mxedn")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("5_0gelw")
 
-[node name="plastic2" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="plastic2" type="MeshInstance3D" parent="EnemyRigidBody3D"]
 transform = Transform3D(-0.7, -5.34992e-15, 6.119594e-08, 5.34992e-15, 0.7, 1.2239188e-07, -6.119594e-08, 1.2239188e-07, -0.7, -0.0056037903, 4.2828322e-17, -4.898989e-10)
 material_override = ExtResource("5_0gelw")
 mesh = SubResource("ArrayMesh_mxedn")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("5_0gelw")
 
-[node name="trim" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="trim" type="MeshInstance3D" parent="EnemyRigidBody3D"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 material_override = ExtResource("7_bl10u")
 mesh = SubResource("ArrayMesh_i6l6p")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("7_bl10u")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EnemyRigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12968487, 0)
 visible = false
 mesh = SubResource("CylinderMesh_wmcot")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyRigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12968487, 0)
 shape = SubResource("ConvexPolygonShape3D_mxedn")
 
-[node name="Area3D" type="Area3D" parent="RigidBody3D"]
+[node name="Area3D" type="Area3D" parent="EnemyRigidBody3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyRigidBody3D/Area3D"]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
 shape = SubResource("SphereShape3D_wmcot")
 
-[node name="Area3D2" type="Area3D" parent="RigidBody3D"]
+[node name="Area3D2" type="Area3D" parent="EnemyRigidBody3D"]
 transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyRigidBody3D/Area3D2"]
 shape = SubResource("CylinderShape3D_wmcot")
 
-[connection signal="body_entered" from="RigidBody3D/Area3D" to="RigidBody3D" method="_on_area_3d_body_entered"]
-[connection signal="body_entered" from="RigidBody3D/Area3D2" to="RigidBody3D" method="_on_area_3d_2_body_entered"]
+[connection signal="body_entered" from="EnemyRigidBody3D/Area3D" to="EnemyRigidBody3D" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="EnemyRigidBody3D/Area3D2" to="EnemyRigidBody3D" method="_on_area_3d_2_body_entered"]
