@@ -4,8 +4,6 @@ var story_text = "In the year 2037, the student loan crisis has only gotten more
 
 @onready var textBox = $HBoxContainer/VBoxContainer/VBoxContainer/RichTextLabel
 
-var scene_transition = preload("res://bracket_start.tscn")
-
 var stringIndex = 0
 var fcount = 0
 
@@ -28,7 +26,7 @@ func _process(delta: float) -> void:
 	
 	if stringIndex >= len(story_text):
 		await get_tree().create_timer(3).timeout
-		get_tree().change_scene_to_packed(scene_transition)
+		get_tree().change_scene_to_packed(GlobalManager.start_bracket_scene)
 		
 	
 	fcount += 1

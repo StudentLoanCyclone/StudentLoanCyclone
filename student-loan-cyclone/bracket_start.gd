@@ -4,8 +4,6 @@ extends PanelContainer
 var donePlaying = false
 var slideSpeed = 1
 
-var scene_transition = preload("res://launch.tscn")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
@@ -30,4 +28,4 @@ func _process(delta: float) -> void:
 			
 	if video_player.position.y < -1200:
 		await get_tree().create_timer(1).timeout
-		get_tree().change_scene_to_packed(scene_transition)
+		get_tree().change_scene_to_packed(GlobalManager.launch_scene)

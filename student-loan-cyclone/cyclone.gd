@@ -27,6 +27,8 @@ var current_stamina = max_stamina
 
 var defence_state = false
 
+@onready var musicPlayer = $BattleMusic
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -54,13 +56,13 @@ func _physics_process(delta):
 	
 	apply_torque(correction_torque)
 	
-	linear_velocity.y = clampf(linear_velocity.y,-200, 30)
+	linear_velocity.y = clampf(linear_velocity.y,-10, 10)
 	
 	linear_velocity.x = clampf(linear_velocity.x,-15, 15)
 	linear_velocity.z = clampf(linear_velocity.z,-15, 15)
 	
-	current_stamina = move_toward(current_stamina, 100.0, 10.0 * delta)
-	current_stamina = clamp(current_stamina + (5.0 * delta), 0.0, 100.0)
+	current_stamina = move_toward(current_stamina, max_stamina, 10.0 * delta)
+	current_stamina = clamp(current_stamina + (5.0 * delta), 0.0, max_stamina)
 	
 	if abs(self.global_position.x) > 27 or abs(self.global_position.z) > 27 or (abs(self.global_position.x) + abs(self.global_position.z)) > 40:
 		if self.is_in_group("player"):
@@ -69,14 +71,23 @@ func _physics_process(delta):
 			self.linear_velocity = Vector3(0, 0, 0)
 			
 		else:
-			queue_free()
+			current_spin = 0
 		
 		
-		
-
 	if current_spin <= 0:
-		#queue_free()
-		pass
+		current_stamina = 0
+		max_stamina = 0
+		await get_tree().create_timer(2).timeout
+		GlobalManager.current_match_state = "loss"
+		
+		
+	if GlobalManager.current_match_state == "victory":
+		musicPlayer.stop()
+		get_tree().change_scene_to_packed(GlobalManager.win_scene)
+		
+	elif GlobalManager.current_match_state == "loss":
+		musicPlayer.stop()
+		get_tree().change_scene_to_packed(GlobalManager.lose_scene)
 
 
 
@@ -157,35 +168,44 @@ func _on_area_3d_2_body_entered(body): #for bumpin
 			faster = false
 			
 			if defence_state == false:
-				body.linear_velocity = -impact_vector
+				print("Enemy Faster, Player Damaged")
+				body.linear_velocity = -impact_vector * recoil_force
 				body.current_spin += self.current_spin/25
 				
 				self.recieve_impact(impact_vector * recoil_force)
 				self.current_spin -= body.current_spin/4
 	
 			else:
+				print("Enemy Faster, Player Parried")
 				body.recieve_impact(-impact_vector * recoil_force)
 				body.current_spin -= self.current_spin/4
 				
-				self.linear_velocity = impact_vector
+				self.linear_velocity = impact_vector * recoil_force
 				self.current_spin += body.current_spin/25
 			
-		else:
+		elif target_velocity.length() < self_velocity.length():
 			faster = true
 			
 			if body.defence_state == false:
+				print("Player Faster, Enemy Damaged")
 				body.recieve_impact(-impact_vector * recoil_force)
 				body.current_spin -= self.current_spin/4
 				
-				self.linear_velocity = impact_vector
+				self.linear_velocity = impact_vector * recoil_force
 				self.current_spin += body.current_spin/25
 	
 			else:
-				body.linear_velocity = -impact_vector
+				print("Player Faster, Enemy Parried")
+				print(body.defence_state)
+				body.linear_velocity = -impact_vector * recoil_force
 				body.current_spin += self.current_spin/25
 				
 				self.recieve_impact(impact_vector * recoil_force)
 				self.current_spin -= body.current_spin/4
+				
+		else:
+			self.recieve_impact(impact_vector * recoil_force * 2)
+			body.recieve_impact(-impact_vector * recoil_force * 2)
 
 
 

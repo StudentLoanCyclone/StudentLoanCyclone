@@ -29,7 +29,7 @@ var current_stamina = max_stamina
 enum State {ATTACK, DEFEND, IDLE}
 var state := State.IDLE
 
-var defence_state
+var defence_state = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -64,13 +64,13 @@ func _physics_process(delta):
 	
 	apply_torque(correction_torque)
 	
-	linear_velocity.y = clampf(linear_velocity.y,-200, 30)
+	linear_velocity.y = clampf(linear_velocity.y,-10, 10)
 	
 	linear_velocity.x = clampf(linear_velocity.x,-15, 15)
 	linear_velocity.z = clampf(linear_velocity.z,-15, 15)
 	
-	current_stamina = move_toward(current_stamina, 100.0, 10.0 * delta)
-	current_stamina = clamp(current_stamina + (5.0 * delta), 0.0, 100.0)
+	current_stamina = move_toward(current_stamina, max_stamina, 10.0 * delta)
+	current_stamina = clamp(current_stamina + (5.0 * delta), 0.0, max_stamina)
 	
 	if abs(self.global_position.x) > 27 or abs(self.global_position.z) > 27 or (abs(self.global_position.x) + abs(self.global_position.z)) > 40:
 		if self.is_in_group("player"):
@@ -79,14 +79,14 @@ func _physics_process(delta):
 			self.linear_velocity = Vector3(0, 0, 0)
 			
 		else:
-			queue_free()
+			current_spin = 0
 		
-		
-		
-
+	
 	if current_spin <= 0:
-		#queue_free()
-		pass
+		current_stamina = 0
+		max_stamina = 0
+		await get_tree().create_timer(2).timeout
+		GlobalManager.current_match_state = "victory"
 		
 	match state:
 		State.ATTACK : _attack()
@@ -106,14 +106,13 @@ func launch():
 
 func _update_state():
 	
-	
 	var dist = (target.global_position - global_position).length()
 	
 	
 	if dist <= 20 and dist >= 5:
 		state = State.ATTACK
 		
-	else:
+	elif dist < 5:
 		state = State.DEFEND
 		
 

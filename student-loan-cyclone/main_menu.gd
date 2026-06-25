@@ -1,8 +1,5 @@
 extends PanelContainer
 
-var start_bracket_scene = preload("res://story_scene.tscn")
-var instructions_scene = preload("res://bracket_start.tscn")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -14,7 +11,7 @@ func _process(delta: float) -> void:
 
 
 func _on_start_pressed() -> void:
-	get_tree().change_scene_to_packed(start_bracket_scene)
+	get_tree().change_scene_to_packed(GlobalManager.start_story_scene)
 
 
 func _on_instructions_pressed() -> void:

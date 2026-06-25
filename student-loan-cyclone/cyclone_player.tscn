@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://b5l6gysesfau8"]
+[gd_scene load_steps=32 format=4 uid="uid://b5l6gysesfau8"]
 
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="1_4ymqu"]
 [ext_resource type="Material" uid="uid://bhx4payryrcni" path="res://asset/spinner2/s2_metal.tres" id="2_xd22q"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c04v35i6f1xfj" path="res://asset/spinner1/firecyclone_albedo.png" id="6_flj1h"]
 [ext_resource type="Texture2D" uid="uid://bgnmyyn61h5dm" path="res://asset/spinner1/firecyclone_normal.png" id="7_0lnko"]
 [ext_resource type="Material" uid="uid://dir2sb3vmtx3n" path="res://asset/spinner2/s2_trim.tres" id="8_4yi5x"]
+[ext_resource type="AudioStream" uid="uid://12rb2pt4xv3d" path="res://asset/audio/music/1- Brave Reaction.mp3" id="9_cklec"]
 [ext_resource type="Script" uid="uid://b8ps4du3bv34v" path="res://camera_tracked.gd" id="9_uh8bv"]
 [ext_resource type="FontFile" uid="uid://dqunlw2285sc4" path="res://asset/fonts/Ethnocentric-Regular.otf" id="10_3bw3t"]
 [ext_resource type="Texture2D" uid="uid://bcddfg2wvu45n" path="res://asset/health_bar/barOutline.png" id="10_flj1h"]
@@ -215,6 +216,11 @@ transform = Transform3D(4, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D2"]
 shape = SubResource("CylinderShape3D_elyes")
+
+[node name="BattleMusic" type="AudioStreamPlayer" parent="RigidBody3D"]
+stream = ExtResource("9_cklec")
+volume_db = -1.0
+autoplay = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.040964965, -0.26614064, 0.9630634, 0.009335574, 0.9637285, 0.26672155, -0.99911696, 0.019916989, -0.036994528, 3.3138523, 2.2102578, 0)

@@ -8,8 +8,6 @@ var spin_value = 0
 
 var clicked = false
 
-var scene_transition = preload("res://main.tscn")
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	full_graphic.modulate = Color(1.0, 1.0, 1.0, 0.0)
@@ -56,7 +54,8 @@ func _input(event):
 		
 		clicked = true
 		GlobalManager.player_start_spin = spin_value
+		GlobalManager.current_match_state = "ongoing"
 		
 		await get_tree().create_timer(2).timeout
-		get_tree().change_scene_to_packed(scene_transition)
+		get_tree().change_scene_to_packed(GlobalManager.fight_scene)
 		

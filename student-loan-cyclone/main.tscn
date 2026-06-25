@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=4 uid="uid://lpcgj2pnwkkg"]
+[gd_scene load_steps=11 format=4 uid="uid://lpcgj2pnwkkg"]
 
 [ext_resource type="Texture2D" uid="uid://cbdnrtdnbj3gn" path="res://asset/thebowl/bowl_albedo.png" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cdg4fobkqpjwm" path="res://cyclone_enemy.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://b5l6gysesfau8" path="res://cyclone_player.tscn" id="3_lquwl"]
-[ext_resource type="AudioStream" uid="uid://12rb2pt4xv3d" path="res://asset/audio/music/1- Brave Reaction.mp3" id="4_1bvp3"]
 
 [sub_resource type="Environment" id="Environment_7dm0k"]
 background_mode = 1
@@ -96,7 +95,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.530058, -3.1673079, 0)
 
 [node name="CycloneModelSwirl" parent="." instance=ExtResource("3_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.53, -3.167, -1)
-
-[node name="BattleMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_1bvp3")
-autoplay = true
