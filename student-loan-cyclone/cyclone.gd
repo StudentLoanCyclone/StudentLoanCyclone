@@ -45,7 +45,7 @@ func _physics_process(delta):
 	#Spin decay.
 	current_spin = move_toward(current_spin, 0, spin_decay * delta)
 	
-	current_spin += (linear_velocity.length()*0.02)	
+	#current_spin += (linear_velocity.length()*0.02)	
 	current_spin = clampf(current_spin, 0, max_spin)
 
 	#Apply angular velocity for spin.
