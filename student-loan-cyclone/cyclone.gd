@@ -31,14 +31,11 @@ var defence_state = false
 @onready var Parry = $parry
 @onready var Parried = $getParried
 @onready var Death = $death
-
-
-
+@onready var trail = $trim/trail
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	launch()
 
 
@@ -125,6 +122,8 @@ func attack():
 	current_spin += spin_boost
 
 	linear_velocity = chasedir * 25
+	
+	activate_trail()
 
 
 
@@ -224,6 +223,18 @@ func recieve_impact(force: Vector3):
 		var target_v = target.linear_velocity
 		apply_central_impulse(force + target_v)
 
+
+func activate_trail():
+	if not trail:
+		return
+	
+	var trim_colour = trim.get_surface_override_material(0).albedo_color
+	
+	var trail_material = trail.process_material as ParticleProcessMaterial
+	if trail_material:
+		trail_material.color = trim_colour
+	
+	trail.emitting = true	
 
 
 func get_target():

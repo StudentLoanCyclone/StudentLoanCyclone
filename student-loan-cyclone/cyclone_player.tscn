@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://b5l6gysesfau8"]
+[gd_scene load_steps=38 format=4 uid="uid://b5l6gysesfau8"]
 
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="1_4ymqu"]
 [ext_resource type="Material" uid="uid://bhx4payryrcni" path="res://asset/spinner2/s2_metal.tres" id="2_xd22q"]
@@ -147,6 +147,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_kh86q")
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sgev8"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgev8"]
+transparency = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_a51ii"]
+material = SubResource("StandardMaterial3D_sgev8")
+size = Vector2(2, 1)
+orientation = 1
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_ryguw"]
 top_radius = 1.746
 bottom_radius = 0.0
@@ -160,6 +171,7 @@ points = PackedVector3Array(0, 0.7915, -1.746, 0, 0.47477603, -1.3970051, -0.171
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_elyes"]
 
 [node name="CycloneModelSwirl" type="Node3D" groups=["player", "spinner"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25231886, 0, 0)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." node_paths=PackedStringArray("plastic1", "plastic2", "trim") groups=["player", "spinner"]]
 mass = 15.0
@@ -198,6 +210,15 @@ material_override = ExtResource("8_4yi5x")
 mesh = SubResource("ArrayMesh_1k1of")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("8_4yi5x")
+
+[node name="trail" type="GPUParticles3D" parent="RigidBody3D/trim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3278038, 0, 0)
+emitting = false
+amount = 40
+lifetime = 0.4
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_sgev8")
+draw_pass_1 = SubResource("QuadMesh_a51ii")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12968487, 0)

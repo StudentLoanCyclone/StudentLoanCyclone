@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6h08spqh03t8"]
+[gd_scene load_steps=7 format=3 uid="uid://b6h08spqh03t8"]
 
 [ext_resource type="Texture2D" uid="uid://b36ltl82233pc" path="res://asset/menu/titleScreenLogo.png" id="1_fu7sn"]
 [ext_resource type="Script" uid="uid://6em7sdrfum1" path="res://main_menu.gd" id="1_jix8l"]
 [ext_resource type="FontFile" uid="uid://dqunlw2285sc4" path="res://asset/fonts/Ethnocentric-Regular.otf" id="2_jix8l"]
 [ext_resource type="Texture2D" uid="uid://c67gso8xd6rb2" path="res://asset/menu/titleScreenRender.png" id="3_glbon"]
+[ext_resource type="AudioStream" uid="uid://d0dsitxd665yi" path="res://asset/audio/music/ChillMenu.wav" id="5_glbon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nlkkf"]
 bg_color = Color(0.07058824, 0.09803922, 0.16078432, 1)
@@ -82,6 +83,10 @@ size_flags_horizontal = 3
 [node name="TextureRect" type="TextureRect" parent="MainMenu/HBoxContainer/CenterContainer"]
 layout_mode = 2
 texture = ExtResource("3_glbon")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_glbon")
+autoplay = true
 
 [connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainMenu/HBoxContainer/VBoxContainer/VBoxContainer/Instructions" to="." method="_on_instructions_pressed"]

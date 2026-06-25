@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cdg4fobkqpjwm"]
+[gd_scene load_steps=25 format=4 uid="uid://cdg4fobkqpjwm"]
 
 [ext_resource type="Script" uid="uid://cjtbydmae5hbx" path="res://cyclone_enemy.gd" id="1_hkboi"]
 [ext_resource type="Texture2D" uid="uid://c04v35i6f1xfj" path="res://asset/spinner1/firecyclone_albedo.png" id="2_mxedn"]
@@ -145,6 +145,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3hp4s")
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hkboi"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkboi"]
+transparency = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_ni0g0"]
+material = SubResource("StandardMaterial3D_hkboi")
+size = Vector2(2, 1)
+orientation = 1
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_wmcot"]
 top_radius = 1.746
 bottom_radius = 0.0
@@ -196,6 +207,14 @@ material_override = ExtResource("7_bl10u")
 mesh = SubResource("ArrayMesh_i6l6p")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("7_bl10u")
+
+[node name="trail" type="GPUParticles3D" parent="EnemyRigidBody3D/trim"]
+emitting = false
+amount = 40
+lifetime = 0.4
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_hkboi")
+draw_pass_1 = SubResource("QuadMesh_ni0g0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="EnemyRigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12968487, 0)
