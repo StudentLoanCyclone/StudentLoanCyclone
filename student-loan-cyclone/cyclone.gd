@@ -28,6 +28,10 @@ var current_stamina = max_stamina
 var defence_state = false
 
 @onready var musicPlayer = $BattleMusic
+@onready var Parry = $parry
+@onready var Parried = $getParried
+
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -180,6 +184,8 @@ func _on_area_3d_2_body_entered(body): #for bumpin
 				body.recieve_impact(-impact_vector * recoil_force)
 				body.current_spin -= self.current_spin/4
 				
+				Parry.play()
+				
 				self.linear_velocity = impact_vector * recoil_force
 				self.current_spin += body.current_spin/25
 			
@@ -199,6 +205,8 @@ func _on_area_3d_2_body_entered(body): #for bumpin
 				print(body.defence_state)
 				body.linear_velocity = -impact_vector * recoil_force
 				body.current_spin += self.current_spin/25
+				
+				Parried.play()
 				
 				self.recieve_impact(impact_vector * recoil_force)
 				self.current_spin -= body.current_spin/4
