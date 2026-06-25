@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://b5l6gysesfau8"]
+[gd_scene load_steps=35 format=4 uid="uid://b5l6gysesfau8"]
 
 [ext_resource type="Script" uid="uid://cyegpya4ws01m" path="res://cyclone.gd" id="1_4ymqu"]
 [ext_resource type="Material" uid="uid://bhx4payryrcni" path="res://asset/spinner2/s2_metal.tres" id="2_xd22q"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dbjq0v6i758ei" path="res://asset/health_bar/barFillup.png" id="11_0lnko"]
 [ext_resource type="Texture2D" uid="uid://0n56sd4gm0gy" path="res://asset/enemy_bar/bar_fill.png" id="11_3bw3t"]
 [ext_resource type="Theme" uid="uid://d1cuh4lo3hehl" path="res://asset/fonts/main.tres" id="12_4yi5x"]
+[ext_resource type="AudioStream" uid="uid://cuc5mim5p32jl" path="res://asset/audio/sound_effects/freesound_community-retro-video-game-death-95730.mp3" id="12_sgev8"]
 [ext_resource type="Texture2D" uid="uid://03kab7tlw6xw" path="res://asset/stamina_bar/staminaOutline.png" id="13_0lnko"]
 [ext_resource type="Texture2D" uid="uid://b5c3k6jsjh24w" path="res://asset/stamina_bar/staminaFillup.png" id="14_4yi5x"]
 
@@ -229,6 +230,9 @@ stream = ExtResource("10_0t2nx")
 
 [node name="getParried" type="AudioStreamPlayer3D" parent="RigidBody3D"]
 stream = ExtResource("11_0gqa5")
+
+[node name="death" type="AudioStreamPlayer3D" parent="RigidBody3D"]
+stream = ExtResource("12_sgev8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.040964965, -0.26614064, 0.9630634, 0.009335574, 0.9637285, 0.26672155, -0.99911696, 0.019916989, -0.036994528, 3.3138523, 2.2102578, 0)

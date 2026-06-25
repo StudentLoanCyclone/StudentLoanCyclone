@@ -30,6 +30,8 @@ var defence_state = false
 @onready var musicPlayer = $BattleMusic
 @onready var Parry = $parry
 @onready var Parried = $getParried
+@onready var Death = $death
+
 
 
 

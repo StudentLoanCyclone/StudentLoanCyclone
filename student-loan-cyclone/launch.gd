@@ -2,6 +2,7 @@ extends PanelContainer
 
 @onready var launch_bar = $HBox/LaunchBar
 @onready var full_graphic = $HBox
+@onready var succes_sound = $success
 
 var direction = 0
 var spin_value = 0
@@ -40,8 +41,7 @@ func _input(event):
 		
 		if clicked_value >= 36 and clicked_value <= 51:
 			spin_value = 300
-			#Play good sound effect.
-			
+			succes_sound.play()			
 		else:
 			if clicked_value < 36:
 				spin_value = 225 * (clicked_value/36)
