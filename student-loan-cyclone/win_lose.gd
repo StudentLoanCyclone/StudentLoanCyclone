@@ -16,11 +16,11 @@ func _process(delta: float) -> void:
 
 
 func _on_continue_pressed() -> void:
-	if GlobalManager.number_rounds_complete < 8:
+	if GlobalManager.number_rounds_complete < GlobalManager.final_round:
 		get_tree().change_scene_to_packed(GlobalManager.continue_bracket_scene)
 	
-	elif GlobalManager.number_rounds_complete == 8:
-		get_tree().change_scene_to_packed(GlobalManager.continue_bracket_scene)
+	elif GlobalManager.number_rounds_complete == GlobalManager.final_round:
+		get_tree().change_scene_to_packed(GlobalManager.final_bracket_scene)
 
 
 func _on_return_pressed() -> void:

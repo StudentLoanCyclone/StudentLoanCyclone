@@ -127,7 +127,7 @@ func _attack():
 		current_stamina -= 33
 		
 		var chasedir = (target.global_position - global_position).normalized()
-		current_spin += spin_boost
+		#current_spin += spin_boost
 
 		linear_velocity = chasedir * 25
 		print("ENEMY ATTACKED!")

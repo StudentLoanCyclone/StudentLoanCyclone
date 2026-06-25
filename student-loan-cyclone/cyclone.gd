@@ -31,6 +31,8 @@ var defence_state = false
 @onready var Parry = $parry
 @onready var Parried = $getParried
 @onready var Death = $death
+
+var impact_cooldown = 0
 @onready var trail = $trim/trail
 
 
@@ -49,6 +51,9 @@ func _physics_process(delta):
 
 	#Apply angular velocity for spin.
 	angular_velocity.y = current_spin
+	
+	if impact_cooldown > 0:
+		impact_cooldown -= 1
 	
 	#Cause spinner to wobble as it slows.
 	var upright_strength = (current_spin/initial_spin)
@@ -84,9 +89,13 @@ func _physics_process(delta):
 		GlobalManager.current_match_state = "loss"
 		
 		
-	if GlobalManager.current_match_state == "victory":
+	if GlobalManager.current_match_state == "victory" and GlobalManager.number_rounds_complete < GlobalManager.final_round:
 		musicPlayer.stop()
 		get_tree().change_scene_to_packed(GlobalManager.win_scene)
+		
+	elif GlobalManager.current_match_state == "victory" and GlobalManager.number_rounds_complete == GlobalManager.final_round:
+		musicPlayer.stop()
+		get_tree().change_scene_to_packed(GlobalManager.final_scene)
 		
 	elif GlobalManager.current_match_state == "loss":
 		musicPlayer.stop()
@@ -169,52 +178,56 @@ func _on_area_3d_2_body_entered(body): #for bumpin
 		var combined_spin = abs(self.current_spin) + abs(body.current_spin)
 		var recoil_force = combined_spin * 2.5
 		
-		if target_velocity.length() > self_velocity.length():
-			faster = false
-			
-			if defence_state == false:
-				print("Enemy Faster, Player Damaged")
-				body.linear_velocity = -impact_vector * recoil_force
-				body.current_spin += self.current_spin/25
+		if impact_cooldown == 0:
+		
+			if target_velocity.length() > self_velocity.length():
+				faster = false
 				
-				self.recieve_impact(impact_vector * recoil_force)
-				self.current_spin -= body.current_spin/4
-	
+				if defence_state == false:
+					print("Enemy Faster, Player Damaged")
+					body.linear_velocity = -impact_vector * recoil_force
+					body.current_spin += 50
+					
+					self.recieve_impact(impact_vector * recoil_force)
+					self.current_spin -= 50
+		
+				else:
+					print("Enemy Faster, Player Parried")
+					body.recieve_impact(-impact_vector * recoil_force)
+					body.current_spin -= 50
+					
+					Parry.play()
+					
+					self.linear_velocity = impact_vector * recoil_force
+					self.current_spin += 50
+				
+			elif target_velocity.length() < self_velocity.length():
+				faster = true
+				
+				if body.defence_state == false:
+					print("Player Faster, Enemy Damaged")
+					body.recieve_impact(-impact_vector * recoil_force)
+					body.current_spin -= self.current_spin/4
+					
+					self.linear_velocity = impact_vector * recoil_force
+					self.current_spin += 50
+		
+				else:
+					print("Player Faster, Enemy Parried")
+					print(body.defence_state)
+					body.linear_velocity = -impact_vector * recoil_force
+					body.current_spin += self.current_spin/25
+					
+					Parried.play()
+					
+					self.recieve_impact(impact_vector * recoil_force)
+					self.current_spin -= 50
+					
 			else:
-				print("Enemy Faster, Player Parried")
-				body.recieve_impact(-impact_vector * recoil_force)
-				body.current_spin -= self.current_spin/4
+				self.recieve_impact(impact_vector * recoil_force * 2)
+				body.recieve_impact(-impact_vector * recoil_force * 2)
 				
-				Parry.play()
-				
-				self.linear_velocity = impact_vector * recoil_force
-				self.current_spin += body.current_spin/25
-			
-		elif target_velocity.length() < self_velocity.length():
-			faster = true
-			
-			if body.defence_state == false:
-				print("Player Faster, Enemy Damaged")
-				body.recieve_impact(-impact_vector * recoil_force)
-				body.current_spin -= self.current_spin/4
-				
-				self.linear_velocity = impact_vector * recoil_force
-				self.current_spin += body.current_spin/25
-	
-			else:
-				print("Player Faster, Enemy Parried")
-				print(body.defence_state)
-				body.linear_velocity = -impact_vector * recoil_force
-				body.current_spin += self.current_spin/25
-				
-				Parried.play()
-				
-				self.recieve_impact(impact_vector * recoil_force)
-				self.current_spin -= body.current_spin/4
-				
-		else:
-			self.recieve_impact(impact_vector * recoil_force * 2)
-			body.recieve_impact(-impact_vector * recoil_force * 2)
+			impact_cooldown = 30
 
 
 

@@ -14,7 +14,6 @@
 [ext_resource type="FontFile" uid="uid://dqunlw2285sc4" path="res://asset/fonts/Ethnocentric-Regular.otf" id="10_3bw3t"]
 [ext_resource type="Texture2D" uid="uid://bcddfg2wvu45n" path="res://asset/health_bar/barOutline.png" id="10_flj1h"]
 [ext_resource type="Texture2D" uid="uid://dyasyxdwrwf7p" path="res://asset/enemy_bar/bar_frame.png" id="10_p843i"]
-[ext_resource type="AudioStream" uid="uid://pq3iu8g18w1d" path="res://asset/audio/sound_effects/v1-post-parry-version3.mp3" id="11_0gqa5"]
 [ext_resource type="Texture2D" uid="uid://dbjq0v6i758ei" path="res://asset/health_bar/barFillup.png" id="11_0lnko"]
 [ext_resource type="Texture2D" uid="uid://0n56sd4gm0gy" path="res://asset/enemy_bar/bar_fill.png" id="11_3bw3t"]
 [ext_resource type="Theme" uid="uid://d1cuh4lo3hehl" path="res://asset/fonts/main.tres" id="12_4yi5x"]
@@ -250,7 +249,7 @@ autoplay = true
 stream = ExtResource("10_0t2nx")
 
 [node name="getParried" type="AudioStreamPlayer3D" parent="RigidBody3D"]
-stream = ExtResource("11_0gqa5")
+stream = ExtResource("10_0t2nx")
 
 [node name="death" type="AudioStreamPlayer3D" parent="RigidBody3D"]
 stream = ExtResource("12_sgev8")
@@ -283,7 +282,7 @@ theme_override_constants/separation = 36
 
 [node name="Label" type="Label" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainerTop"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 6
 theme_override_fonts/font = ExtResource("10_3bw3t")
 theme_override_font_sizes/font_size = 32
 text = "Enemy Spin"
@@ -299,7 +298,6 @@ allow_greater = true
 texture_under = ExtResource("10_p843i")
 texture_over = ExtResource("10_p843i")
 texture_progress = ExtResource("11_3bw3t")
-tint_progress = Color(1, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="EnemySpin" type="Label" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer/HBoxContainerTop"]
@@ -307,7 +305,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 theme_override_fonts/font = ExtResource("10_3bw3t")
 theme_override_font_sizes/font_size = 32
-text = "250"
+text = "0"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
