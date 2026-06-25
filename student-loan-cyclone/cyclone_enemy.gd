@@ -91,6 +91,7 @@ func _physics_process(delta):
 	match state:
 		State.ATTACK : _attack()
 		State.DEFEND : _defend()
+		State.IDLE : _idle()
 
 
 
@@ -103,19 +104,19 @@ func launch():
 	angular_velocity.x = randf_range(0,10)
 	angular_velocity.z = randf_range(0,10)	
 
-
 func _update_state():
 	
 	var dist = (target.global_position - global_position).length()
 	
 	
-	if dist <= 20 and dist >= 5:
+	if dist <= 20 and dist > 5:
 		state = State.ATTACK
 		
 	elif dist < 5:
 		state = State.DEFEND
+	else:
+		state = State.IDLE
 		
-
 
 func _attack():
 	#enemy attack should also be about deciding if it can and should
@@ -127,8 +128,6 @@ func _attack():
 		current_spin += spin_boost
 
 		linear_velocity = chasedir * 25
-
-
 
 func _defend():
 	if (current_stamina >= 33):
@@ -150,6 +149,8 @@ func _defend():
 		
 		defence_state = false
 
+func _idle():
+	return
 
 
 func _on_area_3d_body_entered(body): #for detection

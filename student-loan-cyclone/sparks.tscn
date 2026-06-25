@@ -1,0 +1,104 @@
+[gd_scene load_steps=12 format=3 uid="uid://dn1m4ckam63gn"]
+
+[ext_resource type="Texture2D" uid="uid://cxfketttpinsp" path="res://asset/spark.webp" id="1_7gn88"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_38p2l"]
+expanded_output_ports = [0]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_7gn88"]
+parameter_name = "hitTexture"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_me7x7"]
+expanded_output_ports = [0]
+source = 5
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_p74jf"]
+
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_jwm2v"]
+billboard_type = 3
+
+[sub_resource type="VisualShader" id="VisualShader_kqolr"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+
+uniform sampler2D hitTexture : source_color;
+
+
+
+void vertex() {
+	mat4 n_out2p0;
+// GetBillboardMatrix:2
+	{
+		mat4 __wm = mat4(normalize(INV_VIEW_MATRIX[0]), normalize(INV_VIEW_MATRIX[1]), normalize(INV_VIEW_MATRIX[2]), MODEL_MATRIX[3]);
+		__wm = __wm * mat4(vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0), vec4(0.0, 0.0, 0.0, 1.0));
+		n_out2p0 = VIEW_MATRIX * __wm;
+	}
+
+
+// Output:0
+	MODELVIEW_MATRIX = n_out2p0;
+
+
+}
+
+void fragment() {
+// Input:2
+	vec4 n_out2p0 = COLOR;
+	float n_out2p4 = n_out2p0.a;
+
+
+	vec4 n_out4p0;
+// Texture2D:4
+	n_out4p0 = texture(hitTexture, UV);
+	float n_out4p1 = n_out4p0.r;
+
+
+// FloatOp:5
+	float n_out5p0 = n_out4p1 + n_out2p4;
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ALPHA = n_out5p0;
+
+
+}
+"
+flags/unshaded = true
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_jwm2v")
+nodes/vertex/2/position = Vector2(-260, 720)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
+nodes/fragment/0/position = Vector2(720, 280)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_38p2l")
+nodes/fragment/2/position = Vector2(-740, 220)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_7gn88")
+nodes/fragment/3/position = Vector2(-1020, 720)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_me7x7")
+nodes/fragment/4/position = Vector2(-460, 1000)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_p74jf")
+nodes/fragment/5/position = Vector2(140, 1060)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 4, 2, 4, 1, 5, 0, 2, 4, 5, 1, 5, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rqck"]
+render_priority = 0
+shader = SubResource("VisualShader_kqolr")
+shader_parameter/hitTexture = ExtResource("1_7gn88")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4kti2"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sn8bh"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_3nwd4"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_4rqck")
+material_overlay = SubResource("ShaderMaterial_4kti2")
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_sn8bh")
+draw_pass_1 = SubResource("QuadMesh_3nwd4")
