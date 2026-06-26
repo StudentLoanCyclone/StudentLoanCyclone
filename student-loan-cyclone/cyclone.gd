@@ -35,6 +35,8 @@ var defence_state = false
 var impact_cooldown = 0
 @onready var trail = $trim/trail
 
+var spark_effect = preload("res://sparks.tscn")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -187,7 +189,11 @@ func _on_area_3d_2_body_entered(body): #for bumpin
 		var recoil_force = combined_spin * 2.5
 		
 		if impact_cooldown == 0:
-		
+			
+			var sparks = spark_effect.instantiate()
+			self.add_child(sparks)
+			sparks.global_position = (self.global_position + body.global_position) / 2
+
 			if target_velocity.length() > self_velocity.length():
 				faster = false
 				

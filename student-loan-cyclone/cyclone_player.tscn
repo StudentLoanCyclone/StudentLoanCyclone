@@ -149,13 +149,11 @@ shadow_mesh = SubResource("ArrayMesh_kh86q")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sgev8"]
 gravity = Vector3(0, 0, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgev8"]
-transparency = 1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0gqa5"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_a51ii"]
-material = SubResource("StandardMaterial3D_sgev8")
+[sub_resource type="PlaneMesh" id="PlaneMesh_0gqa5"]
+material = SubResource("StandardMaterial3D_0gqa5")
 size = Vector2(2, 1)
-orientation = 1
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ryguw"]
 top_radius = 1.746
@@ -218,7 +216,7 @@ lifetime = 0.4
 one_shot = true
 randomness = 0.33
 process_material = SubResource("ParticleProcessMaterial_sgev8")
-draw_pass_1 = SubResource("QuadMesh_a51ii")
+draw_pass_1 = SubResource("PlaneMesh_0gqa5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12968487, 0)

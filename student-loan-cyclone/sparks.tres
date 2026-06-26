@@ -1,9 +1,12 @@
-[gd_resource type="VisualShader" format=3]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cba3vs6nmi2ns"]
+
+[ext_resource type="Texture2D" uid="uid://cxfketttpinsp" path="res://asset/spark.webp" id="1_3n0cq"]
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-
-
-"
+transparency = 1
+albedo_texture = ExtResource("1_3n0cq")
+emission_enabled = true
+emission = Color(1, 0.5294118, 0, 1)
+emission_energy_multiplier = 10.0
+emission_operator = 1
+emission_texture = ExtResource("1_3n0cq")
