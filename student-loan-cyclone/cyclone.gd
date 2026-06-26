@@ -28,18 +28,32 @@ var current_stamina = max_stamina
 var defence_state = false
 
 @onready var musicPlayer = $BattleMusic
-@onready var Parry = $parry
-@onready var Parried = $getParried
-@onready var Death = $death
+@onready var Parry = $Parry
+@onready var Parried = $GetParried
+@onready var Death = $Death
+@onready var Clash = $Clash
 
 var impact_cooldown = 0
 @onready var trail = $trim/trail
 
 var spark_effect = preload("res://sparks.tscn")
 
+var clash_sfx = [preload("res://asset/audio/sound_effects/Metal_Hit_22.wav"),
+				preload("res://asset/audio/sound_effects/Metal_Hit_23.wav"),
+				preload("res://asset/audio/sound_effects/Metal_Hit_29.wav"),
+				preload("res://asset/audio/sound_effects/Metal_Hit_35.wav"),
+				preload("res://asset/audio/sound_effects/Metal_Hit_53.wav"),
+				preload("res://asset/audio/sound_effects/Metal_Hit_63.wav"),
+				]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	trim.get_surface_override_material(0).albedo_color = GlobalManager.player_trim
+	plastic1.get_surface_override_material(0).albedo_color = GlobalManager.player_plastic
+	plastic2.get_surface_override_material(0).albedo_color = GlobalManager.player_plastic
+	
 	var trim_colour = trim.get_surface_override_material(0).albedo_color
 	
 	var trail_material = StandardMaterial3D.new()
@@ -138,7 +152,7 @@ func attack():
 	current_stamina -= 33
 	
 	var chasedir = (target.global_position - global_position).normalized()
-	current_spin += spin_boost
+	#current_spin += spin_boost
 
 	linear_velocity = chasedir * 25
 	
@@ -193,6 +207,11 @@ func _on_area_3d_2_body_entered(body): #for bumpin
 			var sparks = spark_effect.instantiate()
 			self.add_child(sparks)
 			sparks.global_position = (self.global_position + body.global_position) / 2
+			
+			if defence_state == false and body.defence_state == false:
+				var clashSound = clash_sfx[randi() % 6]
+				Clash.stream = clashSound
+				Clash.play()
 
 			if target_velocity.length() > self_velocity.length():
 				faster = false

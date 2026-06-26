@@ -13,6 +13,6 @@ metallic = 1.0
 metallic_texture = ExtResource("2_qq3js")
 roughness_texture = ExtResource("4_1bjyu")
 emission_enabled = true
-emission_energy_multiplier = 16.0
+emission_energy_multiplier = 24.0
 normal_enabled = true
 normal_texture = ExtResource("3_a1p0p")

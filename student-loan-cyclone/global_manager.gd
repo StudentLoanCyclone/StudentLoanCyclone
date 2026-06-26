@@ -15,9 +15,15 @@ var continue_bracket_scene = preload("res://bracket_continue.tscn")
 var final_bracket_scene = preload("res://bracket_final.tscn")
 
 var main_menu_scene = preload("res://main_menu.tscn")
+var instructions_scene = preload("res://instructions_scene.tscn")
+var customize_scene = preload("res://customize_scene.tscn")
+
 var fight_scene = preload("res://main.tscn")
 
 var launch_scene = preload("res://launch.tscn")
+
+var player_trim = Color("0091e8")
+var player_plastic = Color("77fffa")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -244,13 +244,18 @@ stream = ExtResource("9_cklec")
 volume_db = -12.0
 autoplay = true
 
-[node name="parry" type="AudioStreamPlayer3D" parent="RigidBody3D"]
+[node name="Parry" type="AudioStreamPlayer3D" parent="RigidBody3D"]
+stream = ExtResource("10_0t2nx")
+volume_db = 15.0
+
+[node name="GetParried" type="AudioStreamPlayer3D" parent="RigidBody3D"]
+stream = ExtResource("10_0t2nx")
+volume_db = 5.0
+
+[node name="Clash" type="AudioStreamPlayer3D" parent="RigidBody3D"]
 stream = ExtResource("10_0t2nx")
 
-[node name="getParried" type="AudioStreamPlayer3D" parent="RigidBody3D"]
-stream = ExtResource("10_0t2nx")
-
-[node name="death" type="AudioStreamPlayer3D" parent="RigidBody3D"]
+[node name="Death" type="AudioStreamPlayer3D" parent="RigidBody3D"]
 stream = ExtResource("12_sgev8")
 
 [node name="Camera3D" type="Camera3D" parent="."]

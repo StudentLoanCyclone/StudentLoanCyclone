@@ -8,6 +8,7 @@ var direction = 0
 var spin_value = 0
 
 var clicked = false
+var ready_to_go = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,6 +21,8 @@ func _process(delta: float) -> void:
 		full_graphic.modulate[3] += 0.01
 		
 	elif clicked == false:
+		ready_to_go = true
+		
 		if direction == 0:
 			launch_bar.value+=2
 		
@@ -36,7 +39,7 @@ func _process(delta: float) -> void:
 
 
 func _input(event):
-	if event.is_action_pressed("attack") and clicked == false:
+	if event.is_action_pressed("attack") and clicked == false and ready_to_go:
 		var clicked_value = launch_bar.value
 		
 		if clicked_value >= 36 and clicked_value <= 51:

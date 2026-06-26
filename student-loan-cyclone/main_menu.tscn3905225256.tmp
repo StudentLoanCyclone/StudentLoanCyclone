@@ -33,7 +33,7 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 110
+theme_override_constants/separation = 120
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="MainMenu/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -43,7 +43,7 @@ texture = ExtResource("1_fu7sn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 85
+theme_override_constants/separation = 150
 
 [node name="Start" type="Button" parent="MainMenu/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -66,17 +66,6 @@ theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("2_jix8l")
 theme_override_font_sizes/font_size = 50
 text = "INSTRUCTIONS"
-flat = true
-
-[node name="Customise" type="Button" parent="MainMenu/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_pressed_color = Color(0.28627452, 0.5647059, 0.8039216, 1)
-theme_override_colors/font_hover_color = Color(0.80784315, 0.6039216, 0.28235295, 1)
-theme_override_constants/outline_size = 15
-theme_override_fonts/font = ExtResource("2_jix8l")
-theme_override_font_sizes/font_size = 50
-text = "CUSTOMIZE"
 flat = true
 
 [node name="Quit" type="Button" parent="MainMenu/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
@@ -114,5 +103,4 @@ autoplay = true
 
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Instructions" to="." method="_on_instructions_pressed"]
-[connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Customise" to="." method="_on_customise_pressed"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/HBoxContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
