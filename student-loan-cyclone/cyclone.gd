@@ -38,6 +38,14 @@ var impact_cooldown = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var trim_colour = trim.get_surface_override_material(0).albedo_color
+	
+	var trail_material = StandardMaterial3D.new()
+	trail_material.albedo_color = trim_colour
+	trail_material.ShadingMode = 0
+	
+	trail.draw_pass_1.material = trail_material
+	
 	launch()
 
 
@@ -238,14 +246,6 @@ func recieve_impact(force: Vector3):
 
 
 func activate_trail():
-	if not trail:
-		return
-	
-	var trim_colour = trim.get_surface_override_material(0).albedo_color
-	
-	var trail_material = trail.process_material as ParticleProcessMaterial
-	if trail_material:
-		trail_material.color = trim_colour
 	
 	trail.emitting = true	
 

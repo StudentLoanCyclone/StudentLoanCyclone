@@ -24,8 +24,6 @@ var current_stamina = max_stamina
 @export var plastic2 : MeshInstance3D
 @export var trim : MeshInstance3D
 
-@onready var trail = $trim/trail
-
 
 #frame these more as states of mind than actions
 enum State {ATTACK, DEFEND, IDLE}
@@ -33,12 +31,21 @@ var state := State.IDLE
 
 var defence_state = false
 
+@onready var trail = $trim/trail
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	if !self.is_in_group("player"):
-		randomize_colour()
+	randomize_colour()
+	
+	var trim_colour = trim.get_surface_override_material(0).albedo_color
+	
+	var trail_material = StandardMaterial3D.new()
+	trail_material.albedo_color = trim_colour
+	trail_material.ShadingMode = 0
+	
+	trail.draw_pass_1.material = trail_material
 	
 	launch()
 
@@ -124,14 +131,13 @@ func _attack():
 	#enemy attack should also be about deciding if it can and should
 	
 	if(current_stamina >= 33):
+		activate_trail()
 		current_stamina -= 33
 		
 		var chasedir = (target.global_position - global_position).normalized()
 		#current_spin += spin_boost
 
 		linear_velocity = chasedir * 25
-		print("ENEMY ATTACKED!")
-		activate_trail()
 
 func _defend():
 	if (current_stamina >= 33):
@@ -169,17 +175,7 @@ func recieve_impact(force: Vector3):
 		var target_v = target.linear_velocity
 		apply_central_impulse(force + target_v)
 
-func activate_trail():
-	if not trail:
-		return
-	
-	var trim_colour = trim.get_surface_override_material(0).albedo_color
-	
-	var trail_material = trail.process_material as ParticleProcessMaterial
-	if trail_material:
-		trail_material.color = trim_colour
-	
-	trail.emitting = true	
+
 
 func get_stamina():
 	return current_stamina
@@ -219,6 +215,11 @@ func randomize_colour():
 	
 func get_target():
 	return target
+	
+	
+func activate_trail():
+	
+	trail.emitting = true	
 
 
 
