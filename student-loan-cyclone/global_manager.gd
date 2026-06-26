@@ -2,12 +2,12 @@ extends Node
 
 var player_start_spin = 100
 var number_rounds_complete = 0
-var final_round = 4
+var final_round = 3
 var current_match_state = null
 
 var win_scene = preload("res://victory.tscn")
 var lose_scene = preload("res://loss.tscn")
-var final_scene = preload("res://loss.tscn")
+var final_scene = preload("res://final.tscn")
 
 var start_story_scene = preload("res://story_scene.tscn")
 var start_bracket_scene = preload("res://bracket_start.tscn")
