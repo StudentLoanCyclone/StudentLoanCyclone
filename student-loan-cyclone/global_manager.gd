@@ -25,11 +25,21 @@ var launch_scene = preload("res://launch.tscn")
 var player_trim = Color("0091e8")
 var player_plastic = Color("77fffa")
 
+var web_called = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if !web_called and number_rounds_complete == final_round + 1:
+		meta_game_complete("jim_maryam_ethan/student_loan_cyclone") 
+	
+	
+func meta_game_complete(gameId: String) -> void:
+	if OS.has_feature("web"):
+		JavaScriptBridge.eval("localStorage.setItem(\"%s\", new Date().toJSON());" % gameId)
+	web_called = true
+	print(gameId)

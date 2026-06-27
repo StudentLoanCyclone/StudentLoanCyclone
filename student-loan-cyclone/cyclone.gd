@@ -79,8 +79,6 @@ func _physics_process(delta):
 	if impact_cooldown > 0:
 		impact_cooldown -= 1
 	
-	print(Engine.get_frames_per_second())
-	
 	#Cause spinner to wobble as it slows.
 	var upright_strength = (current_spin/initial_spin)
 	var current_upright = global_transform.basis.y
